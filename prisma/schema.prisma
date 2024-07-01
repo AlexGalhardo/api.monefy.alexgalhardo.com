@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                              String    @id @default(uuid())
+  name                            String
+  email                           String    @unique
+  jwt_token                       String?   @unique
+  password                        String
+  reset_password_token            String?   @unique
+  reset_password_token_expires_at String?
+  created_at                      String
+  updated_at                      String?
+  expenses Expense[]
+
+  @@unique(fields: [email, reset_password_token], name: "resetPasswordTokenIsValid")
+  @@map("users")
+}
+
+model Expense {
+  id          String          @id @default(uuid())
+  user_email  String
+  description String
+  category    ExpenseCategory
+  amount      Int
+  created_at  String
+  updated_at  String?
+
+  user User @relation(fields: [user_email], references: [email])
+
+  @@map("expenses")
+}
+
+enum ExpenseCategory {
+  FOOD
+  HOUSE
+  ENTERTAINMENT
+  SUBSCRIPTIONS
+  TRANSPORT
+  CLOTHES
+  EDUCATION
+  SHOP
+  GIFTS
+  HEALTH
+  GOING_OUT
+  WORK
+  RENT
+}

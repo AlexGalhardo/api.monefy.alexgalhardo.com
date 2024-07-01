@@ -1,0 +1,24 @@
+[
+    {
+        "id": "48b9e952-b0ca-4b88-ae92-753f892f107e",
+        "name": "alex",
+        "email": "alex@gmail.com",
+        "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoiYWxleEBnbWFpbC5jb20iLCJpYXQiOjE3MTk4NzA4OTZ9.c5PGovqgKz4m7s6BFVLPn3-pITTyeDpwbDL7O-q9-Go",
+        "password": "$2a$12$R5vYEIWyNRaGcluG9HjToO5YfZq0pocFiyJgS4u7NwpkJc6q2zS1O",
+        "reset_password_token": null,
+        "reset_password_token_expires_at": null,
+        "created_at": "2024-07-01T21:54:07.720Z",
+        "updated_at": null
+    },
+    {
+        "id": "a708562f-b19a-46fe-a5dd-f1ac7b473f70",
+        "name": "junin",
+        "email": "junin@gmail.com",
+        "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoianVuaW5AZ21haWwuY29tIiwiaWF0IjoxNzE5ODcyNDQ0fQ._q8ho_mx9UET9s6LC1o3yrGmI7nx-yAb8patjybJkoo",
+        "password": "$2a$12$CBiyIGvh7Hwj55DfQfNvIeyVYcymV5gd2j7lqjUR06bjB8dLxB6YO",
+        "reset_password_token": null,
+        "reset_password_token_expires_at": null,
+        "created_at": "2024-07-01T22:20:45.908Z",
+        "updated_at": null
+    }
+]
