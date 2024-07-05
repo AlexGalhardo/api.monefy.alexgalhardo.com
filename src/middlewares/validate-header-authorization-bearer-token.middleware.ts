@@ -3,7 +3,7 @@ import { ErrorsMessages } from "src/utils/errors-messages.util";
 import * as jwt from "jsonwebtoken";
 import UsersRepository from "src/repositories/users.repository";
 
-const headerAuthorizationBearerTokenMiddleware = async ({ bearer, set }: any) => {
+const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }: any) => {
     try {
         if (!bearer) {
             set.status = 401;
@@ -41,4 +41,4 @@ const headerAuthorizationBearerTokenMiddleware = async ({ bearer, set }: any) =>
     }
 };
 
-export default headerAuthorizationBearerTokenMiddleware;
+export default ValidateHeaderAuthorizationBearerTokenMiddleware;

@@ -1,40 +1,44 @@
 {
-	"name": "api-money-manager.alexgalhardo.com",
-	"scripts": {
-		"dev": "bun run --watch src/server.ts",
-		"client": "bun run src/client.ts",
-		"format": "prettier --write \"src/**/*.ts\"",
-		"test": "bun test",
-		"husky": "husky install",
-		"build": "bun build --compile --minify ./src/server.ts --outfile server && bun build --compile --minify ./src/client.ts --outfile client",
-		"build:server": "./server",
-		"build:client": "./client",
-		"up:docker": "docker stop $(docker ps -aq) && docker rm $(docker ps -aq) && sudo docker build -t api-money-manager.alexgalhardo.com . && docker run -d -p 3000:3000 api-money-manager.alexgalhardo.com",
-		"prepare": "bunx husky"
-	},
-	"prisma": {
-		"seed": "ts-node --transpile-only --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
-	},
-	"dependencies": {
-		"@elysiajs/bearer": "^1.0.2",
-		"@elysiajs/eden": "^1.0.14",
-		"@elysiajs/swagger": "1.0.5",
-		"@prisma/client": "^5.16.1",
-		"@types/bcryptjs": "^2.4.6",
-		"bcryptjs": "^2.4.3",
-		"elysia": "^1.0.26",
-		"i": "^0.3.7",
-		"joi": "^17.13.3",
-		"jsonwebtoken": "^9.0.2",
-		"zod": "^3.23.8"
-	},
-	"devDependencies": {
-		"@types/jsonwebtoken": "^9.0.6",
-		"bun-types": "latest",
-		"husky": "^9.0.11",
-		"prettier": "^3.3.2",
-		"ts-node": "^10.9.2",
-		"typescript": "^5.5.3",
-		"prisma": "^5.16.1"
-	}
+  "name": "api-money-manager.alexgalhardo.com",
+  "scripts": {
+    "dev": "bun run --watch src/server.ts",
+    "client": "bun run src/client.ts",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test": "bun test",
+    "husky": "husky install",
+    "build": "bun build --compile --minify ./src/server.ts --outfile server && bun build --compile --minify ./src/client.ts --outfile client",
+    "build-server": "./server",
+    "build-client": "./client",
+    "delete-image-and-up-docker": "docker stop $(docker ps -q) && docker rm $(docker ps -aq) && sudo docker build -t api-money-manager.alexgalhardo.com . && docker run -d -p 3000:3000 api-money-manager.alexgalhardo.com",
+    "build-and-up-docker": "sudo docker build -t api-money-manager.alexgalhardo.com . && docker run -d -p 3000:3000 api-money-manager.alexgalhardo.com",
+    "prepare": "bunx husky"
+  },
+  "prisma": {
+    "seed": "ts-node --transpile-only --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
+  "dependencies": {
+    "@elysiajs/bearer": "^1.0.2",
+    "@elysiajs/eden": "^1.0.14",
+    "@elysiajs/swagger": "1.0.5",
+    "@prisma/client": "^5.16.1",
+    "@types/bcryptjs": "^2.4.6",
+    "amqplib": "^0.10.4",
+    "bcryptjs": "^2.4.3",
+    "elysia": "^1.0.27",
+    "i": "^0.3.7",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.9.14",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.5",
+    "@types/jsonwebtoken": "^9.0.6",
+    "bun-types": "latest",
+    "husky": "^9.0.11",
+    "prettier": "^3.3.2",
+    "prisma": "^5.16.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3"
+  }
 }

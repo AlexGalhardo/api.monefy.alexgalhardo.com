@@ -4,7 +4,7 @@ import { bearer } from "@elysiajs/bearer";
 import HealthCheckController from "./controllers/health-check.controller";
 import AuthController from "./controllers/auth.controller";
 import ExpensesController from "./controllers/expenses.controller";
-import headerAuthorizationBearerTokenMiddleware from "./middlewares/header-authorization-bearer-token.middleware";
+import ValidateHeaderAuthorizationBearerTokenMiddleware from "./middlewares/validate-header-authorization-bearer-token.middleware";
 import { using_database } from "./utils/constants.util";
 
 export const app = new Elysia()
@@ -30,7 +30,7 @@ export const app = new Elysia()
     .post("/login", AuthController.login)
     .guard(
         {
-            beforeHandle: headerAuthorizationBearerTokenMiddleware,
+            beforeHandle: ValidateHeaderAuthorizationBearerTokenMiddleware,
         },
         (app) =>
             app.group("/expenses", (app) =>

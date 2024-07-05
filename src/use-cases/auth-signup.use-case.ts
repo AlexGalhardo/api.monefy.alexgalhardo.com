@@ -4,8 +4,9 @@ import Bcrypt from "../utils/bcrypt.util";
 import { ErrorsMessages } from "../utils/errors-messages.util";
 import * as jwt from "jsonwebtoken";
 import { User } from "@prisma/client";
-import TelegramLog from "src/config/telegram-logger.config";
 import AuthSignupValidator from "src/validators/auth-signup.validator";
+import { SMTP } from "src/config/smtp.config";
+import RabbitMQ from "src/config/rabbitmq.config";
 
 interface AuthSignupUseCaseResponse {
     success: boolean;
@@ -23,7 +24,10 @@ export interface AuthSignupUseCasePort {
 }
 
 export default class AuthSignupUseCase implements AuthSignupUseCasePort {
-    constructor(private readonly usersRepository: UsersRepositoryPort = new UsersRepository()) {}
+    constructor(
+        private readonly usersRepository: UsersRepositoryPort = new UsersRepository(),
+        private readonly rabbitMq = new RabbitMQ(),
+    ) {}
 
     async execute(authSignupPayload: AuthSignupDTO): Promise<AuthSignupUseCaseResponse> {
         AuthSignupValidator.parse(authSignupPayload);
@@ -46,7 +50,8 @@ export default class AuthSignupUseCase implements AuthSignupUseCasePort {
             });
 
             if (userCreated) {
-                TelegramLog.info(`\nUSER CREATED\n\n ${JSON.stringify(userCreated)}\n`);
+                await this.rabbitMq.sendMessageUserSignup(JSON.stringify(userCreated));
+                await this.rabbitMq.consumeMessages();
 
                 return { success: true, data: userCreated };
             }
