@@ -50,7 +50,7 @@ export default class AuthSignupUseCase implements AuthSignupUseCasePort {
             });
 
             if (userCreated) {
-                await this.rabbitMq.sendMessageUserSignup(JSON.stringify(userCreated));
+                // await this.rabbitMq.sendMessageUserSignup(JSON.stringify(userCreated));
                 // await this.rabbitMq.consumeMessages();
 
                 return { success: true, data: userCreated };

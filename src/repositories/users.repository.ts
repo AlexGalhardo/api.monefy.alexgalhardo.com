@@ -1,7 +1,7 @@
-import type { $Enums, Expense, User } from "@prisma/client";
+import type { Expense, User } from "@prisma/client";
 import prisma from "../config/prisma.config";
-import { ProfileUpdateDTO } from "src/use-cases/profile-update.use-case";
 import { ErrorsMessages } from "src/utils/errors-messages.util";
+import { UserUpdateDTO } from "src/use-cases/user-update.use-case";
 
 interface UserRepositoryCreateDTO {
     id: string;
@@ -20,6 +20,8 @@ export interface UsersRepositoryPort {
     create(dto: UserRepositoryCreateDTO): Promise<User>;
     update(dto: any): Promise<User>;
     delete(id: string): Promise<User>;
+    findByEmailAndResetPasswordToken(email: string, reset_password_token: string): Promise<User | null>;
+    updateResetPasswordToken({ email, reset_password_token, reset_password_token_expires_at }): Promise<User>;
 }
 
 export default class UsersRepository implements UsersRepositoryPort {
@@ -87,6 +89,39 @@ export default class UsersRepository implements UsersRepositoryPort {
                 const userFound = await prisma.user.findUnique({
                     where: {
                         email,
+                    },
+                });
+
+                if (userFound) return userFound;
+
+                return null;
+            } catch (error: any) {
+                throw new Error(error.message);
+            }
+        }
+    }
+
+    async findByEmailAndResetPasswordToken(email: string, reset_password_token: string): Promise<User | null> {
+        if (Bun.env.USE_JSON_DATABASE === "true") {
+            try {
+                const file = await Bun.file("./src/repositories/jsons/users.json").json();
+
+                const userFound = file.find(
+                    (user: User) => user.email === email && user.reset_password_token === reset_password_token,
+                );
+
+                if (userFound) return userFound;
+
+                return null;
+            } catch (error: any) {
+                throw new Error(error.message);
+            }
+        } else {
+            try {
+                const userFound = await prisma.user.findUnique({
+                    where: {
+                        email,
+                        reset_password_token,
                     },
                 });
 
@@ -229,19 +264,24 @@ export default class UsersRepository implements UsersRepositoryPort {
         }
     }
 
-    async update({ id, name, email, password, jwt_token }: ProfileUpdateDTO): Promise<User> {
+    async update({ name, email, password, reset_password_token }: UserUpdateDTO): Promise<User> {
         if (Bun.env.USE_JSON_DATABASE === "true") {
             try {
                 const file = await Bun.file("./src/repositories/jsons/users.json").json();
 
-                const index = file.findIndex((user: User) => user.id === id);
+                const index = file.findIndex((user: User) => user.email === email);
 
                 if (index === -1) throw new Error(ErrorsMessages.USER_NOT_FOUND);
 
-                file[index].name = name;
-                file[index].email = email;
-                file[index].password = password;
-                file[index].jwt_token = jwt_token;
+                file[index].name = name ?? file[index].name;
+
+                if (password) {
+                    file[index].password = password ?? file[index].password;
+                    file[index].reset_password_token = null;
+                    file[index].reset_password_token_expires_at = null;
+                }
+
+                file[index].updated_at = new Date().toISOString();
 
                 await Bun.write("./src/repositories/jsons/users.json", JSON.stringify(file, null, 4));
 
@@ -251,15 +291,25 @@ export default class UsersRepository implements UsersRepositoryPort {
             }
         } else {
             try {
+                const user = await prisma.user.findUnique({
+                    where: { email },
+                });
+
+                let userName = name ?? user?.name;
+                let newPassword = password ?? user?.password;
+                let resetPasswordToken = reset_password_token ?? user?.reset_password_token;
+
                 return await prisma.user.update({
                     where: {
-                        id,
+                        email,
                     },
                     data: {
-                        name,
-                        email,
-                        password,
-                        jwt_token,
+                        name: userName,
+                        password: newPassword,
+                        reset_password_token: resetPasswordToken,
+                        reset_password_token_expires_at: reset_password_token
+                            ? null
+                            : user?.reset_password_token_expires_at,
                         updated_at: new Date().toISOString(),
                     },
                 });
@@ -291,6 +341,43 @@ export default class UsersRepository implements UsersRepositoryPort {
                 return await prisma.user.delete({
                     where: {
                         id,
+                    },
+                });
+            } catch (error: any) {
+                throw new Error(error.message);
+            }
+        }
+    }
+
+    async updateResetPasswordToken({ email, reset_password_token, reset_password_token_expires_at }): Promise<User> {
+        if (Bun.env.USE_JSON_DATABASE === "true") {
+            try {
+                const file = await Bun.file("./src/repositories/jsons/users.json").json();
+
+                const index = file.findIndex((user: User) => user.email === email);
+
+                if (index === -1) throw new Error(ErrorsMessages.USER_NOT_FOUND);
+
+                file[index].reset_password_token = reset_password_token;
+                file[index].reset_password_token_expires_at = reset_password_token_expires_at;
+                file[index].updated_at = new Date().toISOString();
+
+                await Bun.write("./src/repositories/jsons/users.json", JSON.stringify(file, null, 4));
+
+                return file[index];
+            } catch (error: any) {
+                throw new Error(`Error updating User: ${error.message}`);
+            }
+        } else {
+            try {
+                return await prisma.user.update({
+                    where: {
+                        email,
+                    },
+                    data: {
+                        reset_password_token,
+                        reset_password_token_expires_at,
+                        updated_at: new Date().toISOString(),
                     },
                 });
             } catch (error: any) {

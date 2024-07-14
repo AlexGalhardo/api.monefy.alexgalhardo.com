@@ -1,0 +1,7 @@
+PATCH http://localhost:3000/user
+content-type: application/json
+
+{
+	"name": "",
+	"password": "alex@gmail.com"
+}

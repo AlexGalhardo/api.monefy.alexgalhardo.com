@@ -2,6 +2,7 @@ export enum ErrorsMessages {
     USERNAME_INVALID = "Username invalid",
     USER_NAME_REQUIRED = "Username required",
     EMAIL_INVALID = "Email invalid",
+    EMAIL_OR_RESET_PASSWORD_TOKEN_INVALID = "Email or reset password token invalid",
     PASSWORD_INVALID = "Password Invalid",
     PASSWORD_INSECURE = "Password is insecure",
     EMAIL_OR_PASSWORD_INVALID = "Email and/or password invalid",

@@ -6,6 +6,7 @@ import AuthController from "./controllers/auth.controller";
 import ExpensesController from "./controllers/expenses.controller";
 import ValidateHeaderAuthorizationBearerTokenMiddleware from "./middlewares/validate-header-authorization-bearer-token.middleware";
 import { using_database } from "./utils/constants.util";
+import UserController from "./controllers/user.controller";
 
 export const app = new Elysia()
     .use(bearer())
@@ -28,6 +29,9 @@ export const app = new Elysia()
     .get("/", HealthCheckController.index)
     .post("/signup", AuthController.signup)
     .post("/login", AuthController.login)
+    .post("/forget-password", AuthController.forgetPassword)
+    .post("/reset-password", AuthController.resetPassword)
+    .patch("/user", UserController.update)
     .guard(
         {
             beforeHandle: ValidateHeaderAuthorizationBearerTokenMiddleware,

@@ -1,4 +1,6 @@
+import AuthForgetPasswordUseCase from "src/use-cases/auth-forget-password.use-case";
 import AuthLoginUseCase from "src/use-cases/auth-login.use-case";
+import AuthResetPasswordUseCase from "src/use-cases/auth-reset-password.use-case";
 import AuthSignupUseCase from "src/use-cases/auth-signup.use-case";
 import { using_database } from "src/utils/constants.util";
 
@@ -27,6 +29,41 @@ export default class AuthController {
             return {
                 success: false,
                 environment: Bun.env.ENVIROMENT,
+                using_database,
+                message: error.issues ?? error.message,
+            };
+        }
+    }
+
+    static async forgetPassword({ body, set }) {
+        try {
+            const { success } = await new AuthForgetPasswordUseCase().execute({ email: body.email });
+            if (success === true) return { success: true, environment: Bun.env.ENVIRONMENT, using_database };
+        } catch (error: any) {
+            set.status = 400;
+            return {
+                success: false,
+                environment: Bun.env.ENVIRONMENT,
+                using_database,
+                message: error.issues ?? error.message,
+            };
+        }
+    }
+
+    static async resetPassword({ params, body, set }) {
+        try {
+            const { success } = await new AuthResetPasswordUseCase().execute({
+                email: params.email,
+                reset_password_token: params.token,
+                new_password: body.new_password,
+                confirm_new_password: body.confirm_new_password,
+            });
+            if (success === true) return { success: true, environment: Bun.env.ENVIRONMENT, using_database };
+        } catch (error: any) {
+            set.status = 400;
+            return {
+                success: false,
+                environment: Bun.env.ENVIRONMENT,
                 using_database,
                 message: error.issues ?? error.message,
             };

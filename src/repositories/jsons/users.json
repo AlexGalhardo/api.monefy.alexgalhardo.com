@@ -163,5 +163,49 @@
         "reset_password_token_expires_at": null,
         "created_at": "2024-07-05T13:34:01.846Z",
         "updated_at": null
+    },
+    {
+        "id": "98f321d8-78f4-47c5-be8f-31113ee576f1",
+        "name": "test update user",
+        "email": "test.update.user@gmail.com",
+        "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidGVzdC51cGRhdGUudXNlckBnbWFpbC5jb20iLCJpYXQiOjE3MjA5OTA0NTh9.7YTekt_57TEFut4totiHAgjjNYWjYY8yKc1G2hI1VVY",
+        "password": "$2a$12$TIQo.Ebt8zT26HOOGro5Z.VhLcoCvO/QuJwn0IKX65ZEXGrsbOYqG",
+        "reset_password_token": null,
+        "reset_password_token_expires_at": null,
+        "created_at": "2024-07-14T20:54:19.752Z",
+        "updated_at": null
+    },
+    {
+        "id": "3b92a811-ac65-4424-b664-d6451038246b",
+        "name": "test Forget password",
+        "email": "test.forget.password@gmail.com",
+        "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidGVzdC5mb3JnZXQucGFzc3dvcmRAZ21haWwuY29tIiwiaWF0IjoxNzIwOTkwNDU5fQ.u2q6p5dYv5U5RyoMBQb0tqIorbPlUX_DlGu8fApQp0w",
+        "password": "$2a$12$bR/nqZnCC3cn98Kju.7Hdektsh9nhyWNqDc3Ka63DzXdZnC/TOYhi",
+        "reset_password_token": null,
+        "reset_password_token_expires_at": null,
+        "created_at": "2024-07-14T20:54:22.764Z",
+        "updated_at": null
+    },
+    {
+        "id": "6262bc05-1476-480f-abe9-86af8bf95f5d",
+        "name": "test reset password",
+        "email": "test.reset.password@gmail.com",
+        "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidGVzdC5yZXNldC5wYXNzd29yZEBnbWFpbC5jb20iLCJpYXQiOjE3MjA5OTA0Nzh9.gp4lxuhzmoDFNiMmQYI37WY43AiH2un3RLTxoJcD0GY",
+        "password": "$2a$12$on4.CshPHPoTC.s/qmkLjewpcg7cvpI1M6QsnWUn0P20FtMuqoV7e",
+        "reset_password_token": null,
+        "reset_password_token_expires_at": null,
+        "created_at": "2024-07-14T20:54:39.017Z",
+        "updated_at": null
+    },
+    {
+        "id": "a6c6039f-10f4-4f68-be06-6e282b9f7f1b",
+        "name": "test signup login",
+        "email": "test.signup.login@gmail.com",
+        "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidGVzdC5zaWdudXAubG9naW5AZ21haWwuY29tIiwiaWF0IjoxNzIwOTkwNTM0fQ.u7tAOy9kzxiI-NdqwewpM1s6X_upcx7iJyJfMzoz8yk",
+        "password": "$2a$12$y3dOu1/lJTVO4IvWtRfAUOW/zjCz/mgxN/85adCmypVHj7JCFPQP.",
+        "reset_password_token": null,
+        "reset_password_token_expires_at": null,
+        "created_at": "2024-07-14T20:55:37.526Z",
+        "updated_at": null
     }
 ]
