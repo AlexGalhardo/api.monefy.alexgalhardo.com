@@ -7,8 +7,9 @@ import { using_database } from "src/utils/constants.util";
 export default class AuthController {
     static async signup({ body, set }) {
         try {
-            const { success, data } = await new AuthSignupUseCase().execute(body);
+            const { success, data, error } = await new AuthSignupUseCase().execute(body);
             if (success === true) return { success: true, environment: Bun.env.ENVIRONMENT, using_database, data };
+            return { success: false, environment: Bun.env.ENVIRONMENT, using_database, error };
         } catch (error: any) {
             set.status = 400;
             return {

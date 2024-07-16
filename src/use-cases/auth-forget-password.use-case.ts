@@ -48,8 +48,10 @@ export default class AuthForgetPasswordUseCase implements AuthForgetPasswordCase
             });
 
             if (resetPasswordTokenCreated) {
-                // await this.rabbitMq.sendMessageForgetPassword(JSON.stringify({ email, linkToResetPassword }));
-                // await this.rabbitMq.consumeMessages();
+                if (Bun.env.USE_RABBITMQ === "true") {
+                    await this.rabbitMq.sendMessageForgetPassword(JSON.stringify({ email, linkToResetPassword }));
+                    await this.rabbitMq.consumeMessages();
+                }
 
                 return { success: true, data: { reset_password_token: token } };
             }

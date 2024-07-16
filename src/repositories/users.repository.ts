@@ -14,7 +14,8 @@ interface UserRepositoryUpdateDTO {
     name?: string;
     email: string;
     password?: string;
-    reset_password_token?: string;
+    reset_password_token?: string | null | undefined;
+    jwt_token?: string | null | undefined;
 }
 
 export interface UsersRepositoryPort {
@@ -270,7 +271,7 @@ export default class UsersRepository implements UsersRepositoryPort {
         }
     }
 
-    async update({ name, email, password, reset_password_token }: UserRepositoryUpdateDTO): Promise<User> {
+    async update({ name, email, password, reset_password_token, jwt_token }: UserRepositoryUpdateDTO): Promise<User> {
         if (Bun.env.USE_JSON_DATABASE === "true") {
             try {
                 const file = await Bun.file("./src/repositories/jsons/users.json").json();
@@ -279,14 +280,16 @@ export default class UsersRepository implements UsersRepositoryPort {
 
                 if (index === -1) throw new Error(ErrorsMessages.USER_NOT_FOUND);
 
-                file[index].name = name ?? file[index].name;
-
                 if (password) {
                     file[index].password = password ?? file[index].password;
                     file[index].reset_password_token = null;
                     file[index].reset_password_token_expires_at = null;
                 }
 
+                console.log("jwt que chegou no update é => ", jwt_token);
+
+                file[index].name = name ?? file[index].name;
+                file[index].jwt_token = jwt_token ?? file[index].jwt_token;
                 file[index].updated_at = new Date().toISOString();
 
                 await Bun.write("./src/repositories/jsons/users.json", JSON.stringify(file, null, 4));
@@ -304,6 +307,7 @@ export default class UsersRepository implements UsersRepositoryPort {
                 let userName = name ?? user?.name;
                 let newPassword = password ?? user?.password;
                 let resetPasswordToken = reset_password_token ?? user?.reset_password_token;
+                let jwtToken = jwt_token ?? user?.jwt_token;
 
                 return await prisma.user.update({
                     where: {
@@ -316,6 +320,7 @@ export default class UsersRepository implements UsersRepositoryPort {
                         reset_password_token_expires_at: reset_password_token
                             ? null
                             : user?.reset_password_token_expires_at,
+                        jwt_token: jwtToken,
                         updated_at: new Date().toISOString(),
                     },
                 });

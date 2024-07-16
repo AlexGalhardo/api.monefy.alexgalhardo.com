@@ -11,6 +11,7 @@ import RabbitMQ from "src/config/rabbitmq.config";
 interface AuthSignupUseCaseResponse {
     success: boolean;
     data?: User;
+    error?: string;
 }
 
 export interface AuthSignupDTO {
@@ -50,11 +51,15 @@ export default class AuthSignupUseCase implements AuthSignupUseCasePort {
             });
 
             if (userCreated) {
-                // await this.rabbitMq.sendMessageUserSignup(JSON.stringify(userCreated));
-                // await this.rabbitMq.consumeMessages();
+                if (Bun.env.USE_RABBITMQ === "true") {
+                    await this.rabbitMq.sendMessageUserSignup(JSON.stringify(userCreated));
+                    await this.rabbitMq.consumeMessages();
+                }
 
                 return { success: true, data: userCreated };
             }
+
+            throw new Error(ErrorsMessages.EMAIL_OR_PASSWORD_INVALID);
         }
 
         throw new Error(ErrorsMessages.EMAIL_OR_PASSWORD_INVALID);

@@ -2,6 +2,6 @@ POST http://localhost:3000/login
 content-type: application/json
 
 {
-	"email": "rabbitmq13@gmail.com",
-	"password": "newpasswordQWE!123"
+	"email": "test.nova.conta@gmail.com",
+	"password": "testnovacontaQWE!123"
 }
