@@ -10,4 +10,5 @@ export enum ErrorsMessages {
     EXPENSE_NOT_FOUND = "Expense not found",
     HEADER_AUTHORIZATION_BEARER_TOKEN_REQUIRED = "Header Authorization Bearer token required",
     HEADER_AUTHORIZATION_BEARER_TOKEN_INVALID = "Header Authorization Bearer token invalid",
+    RESET_PASSWORD_TOKEN_EXPIRED = "Reset password token expired",
 }

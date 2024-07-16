@@ -1,8 +1,14 @@
 import { z } from "zod";
 
+// email, reset_password_token, new_password
+
 const AuthResetPasswordValidator = z
     .object({
-        name: z.string().min(4, "name must be at least 4 characters long"),
+        email: z.string().email(),
+        reset_password_token: z
+            .string()
+            .min(48, '"reset_password_token" must be at least 48 characters')
+            .max(48, '"reset_password_token" must be at most 48 characters'),
         new_password: z
             .string()
             .min(8, "password must be at least 8 characters long")

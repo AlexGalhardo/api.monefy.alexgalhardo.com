@@ -1,15 +1,16 @@
 import UsersRepository, { UsersRepositoryPort } from "../repositories/users.repository";
 import { ErrorsMessages } from "../utils/errors-messages.util";
-import AuthSignupValidator from "src/validators/auth-signup.validator";
 import { SMTP } from "src/config/smtp.config";
 import RabbitMQ from "src/config/rabbitmq.config";
 import generateRandomToken from "src/utils/generate-random-token.util";
+import AuthForgetPasswordValidator from "src/validators/auth-forget-password.validator";
 
 interface AuthForgetPasswordUseCaseResponse {
     success: boolean;
-    data: {
+    data?: {
         reset_password_token: string;
     };
+    error?: string;
 }
 
 export interface AuthForgetPasswordDTO {
@@ -27,7 +28,7 @@ export default class AuthForgetPasswordUseCase implements AuthForgetPasswordCase
     ) {}
 
     async execute(authForgetPasswordPayload: AuthForgetPasswordDTO): Promise<AuthForgetPasswordUseCaseResponse> {
-        AuthSignupValidator.parse(authForgetPasswordPayload);
+        AuthForgetPasswordValidator.parse(authForgetPasswordPayload);
 
         const { email } = authForgetPasswordPayload;
 
@@ -36,11 +37,11 @@ export default class AuthForgetPasswordUseCase implements AuthForgetPasswordCase
         if (emailRegistred) {
             const token = generateRandomToken();
 
-            const linkToResetPassword = `${Bun.env.APP_URL}/reset-password/${email}/${token}}`;
+            const linkToResetPassword = `${Bun.env.APP_URL}/reset-password/${email}/${token}`;
 
             const resetPasswordTokenExpiresInOneHour = new Date(new Date().getTime() + 60 * 60 * 1000).toISOString();
 
-            const resetPasswordTokenCreated = await this.usersRepository.updateResetPasswordToken({
+            const resetPasswordTokenCreated = await this.usersRepository.createResetPasswordToken({
                 email: authForgetPasswordPayload.email,
                 reset_password_token: token,
                 reset_password_token_expires_at: resetPasswordTokenExpiresInOneHour,
@@ -52,8 +53,10 @@ export default class AuthForgetPasswordUseCase implements AuthForgetPasswordCase
 
                 return { success: true, data: { reset_password_token: token } };
             }
+
+            throw new Error("Reset Password Token not created");
         }
 
-        throw new Error(ErrorsMessages.EMAIL_OR_PASSWORD_INVALID);
+        throw new Error("Email not registred");
     }
 }

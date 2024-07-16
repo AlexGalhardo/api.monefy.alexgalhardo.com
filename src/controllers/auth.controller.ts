@@ -15,57 +15,62 @@ export default class AuthController {
                 success: false,
                 environment: Bun.env.ENVIRONMENT,
                 using_database,
-                message: error.issues ?? error.message,
+                error: error.issues ?? error.message,
             };
         }
     }
 
     static async login({ body, set }) {
         try {
-            const { success, data } = await new AuthLoginUseCase().execute(body);
+            const { success, data, error } = await new AuthLoginUseCase().execute(body);
             if (success === true) return { success: true, environment: Bun.env.ENVIRONMENT, using_database, data };
+            set.status = 400;
+            return { success: false, error };
         } catch (error: any) {
             set.status = 400;
             return {
                 success: false,
                 environment: Bun.env.ENVIROMENT,
                 using_database,
-                message: error.issues ?? error.message,
+                error: error.issues ?? error.message,
             };
         }
     }
 
     static async forgetPassword({ body, set }) {
         try {
-            const { success } = await new AuthForgetPasswordUseCase().execute({ email: body.email });
-            if (success === true) return { success: true, environment: Bun.env.ENVIRONMENT, using_database };
+            const { success, data, error } = await new AuthForgetPasswordUseCase().execute({ email: body.email });
+            if (success === true) return { success: true, environment: Bun.env.ENVIRONMENT, using_database, data };
+            set.status = 400;
+            return { success: false, error };
         } catch (error: any) {
             set.status = 400;
             return {
                 success: false,
                 environment: Bun.env.ENVIRONMENT,
                 using_database,
-                message: error.issues ?? error.message,
+                error: error.issues ?? error.message,
             };
         }
     }
 
     static async resetPassword({ params, body, set }) {
         try {
-            const { success } = await new AuthResetPasswordUseCase().execute({
+            const { success, error } = await new AuthResetPasswordUseCase().execute({
                 email: params.email,
                 reset_password_token: params.token,
                 new_password: body.new_password,
                 confirm_new_password: body.confirm_new_password,
             });
             if (success === true) return { success: true, environment: Bun.env.ENVIRONMENT, using_database };
+            return { success: false, error };
         } catch (error: any) {
             set.status = 400;
             return {
                 success: false,
                 environment: Bun.env.ENVIRONMENT,
                 using_database,
-                message: error.issues ?? error.message,
+                error: error.issues ?? error.message,
             };
         }
     }

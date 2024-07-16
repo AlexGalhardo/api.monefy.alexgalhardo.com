@@ -3,10 +3,11 @@ import { ErrorsMessages } from "../utils/errors-messages.util";
 import { SMTP } from "src/config/smtp.config";
 import RabbitMQ from "src/config/rabbitmq.config";
 import AuthResetPasswordValidator from "src/validators/auth-reset-password.validator";
+import Bcrypt from "src/utils/bcrypt.util";
 
 interface AuthResetPasswordUseCaseResponse {
     success: boolean;
-    message?: string;
+    error?: string;
 }
 
 export interface AuthResetPasswordDTO {
@@ -31,24 +32,28 @@ export default class AuthResetPasswordUseCase implements AuthResetPasswordCasePo
 
         const { email, reset_password_token, new_password } = authResetPasswordPayload;
 
-        const emailAndResetPasswordTokenIsValid = await this.usersRepository.findByEmailAndResetPasswordToken(
-            email,
-            reset_password_token,
-        );
+        const userFound = await this.usersRepository.findByEmailAndResetPasswordToken(email, reset_password_token);
 
-        if (emailAndResetPasswordTokenIsValid) {
+        if (userFound) {
+            const { reset_password_token_expires_at } = userFound;
+
+            const resetPasswordTokenIsNotExpired = new Date() < new Date(reset_password_token_expires_at as string);
+
+            if (!resetPasswordTokenIsNotExpired) throw new Error(ErrorsMessages.RESET_PASSWORD_TOKEN_EXPIRED);
+
             const userPasswordUpdated = await this.usersRepository.update({
-                password: new_password,
+                email,
+                password: await Bcrypt.hash(new_password),
             });
 
             if (userPasswordUpdated) {
                 // await this.rabbitMq.sendMessageUserSignup(JSON.stringify(userPasswordUpdated));
                 // await this.rabbitMq.consumeMessages();
 
-                return { success: true, message: "Password updated" };
+                return { success: true };
             }
 
-            return { success: false };
+            throw new Error("User password not updated");
         }
 
         throw new Error(ErrorsMessages.EMAIL_OR_RESET_PASSWORD_TOKEN_INVALID);

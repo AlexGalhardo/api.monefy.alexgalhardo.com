@@ -207,5 +207,16 @@
         "reset_password_token_expires_at": null,
         "created_at": "2024-07-14T20:55:37.526Z",
         "updated_at": null
+    },
+    {
+        "id": "3c222442-7c94-42cb-bfae-b744d0a96ffb",
+        "name": "porra",
+        "email": "rabbitmq13@gmail.com",
+        "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoicmFiYml0bXExM0BnbWFpbC5jb20iLCJpYXQiOjE3MjExMzc5MTJ9.cJD3uRcKw0GS0WkzvZD70TZ5ITXYrpnWZCiRbkgWuIM",
+        "password": "$2a$12$PfReXbYFY0Uu1gskvd.BwOsHzefF1XXVbIX/wx15NqOCFtpVgXX9m",
+        "reset_password_token": null,
+        "reset_password_token_expires_at": null,
+        "created_at": "2024-07-16T13:51:54.123Z",
+        "updated_at": "2024-07-16T15:18:18.318Z"
     }
 ]

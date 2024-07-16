@@ -4,6 +4,7 @@ import * as jwt from "jsonwebtoken";
 import UsersRepository from "src/repositories/users.repository";
 
 const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }: any) => {
+    console.log("entrou ValidateHeaderAuthorizationBearerTokenMiddleware");
     try {
         if (!bearer) {
             set.status = 401;
@@ -27,16 +28,17 @@ const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }:
                 success: false,
                 environment: Bun.env.ENVIRONMENT,
                 using_database,
-                message: ErrorsMessages.HEADER_AUTHORIZATION_BEARER_TOKEN_INVALID,
+                error: ErrorsMessages.HEADER_AUTHORIZATION_BEARER_TOKEN_INVALID,
             };
         }
-    } catch (error) {
+    } catch (error: any) {
         set.status = 401;
         return {
             success: false,
             environment: Bun.env.ENVIRONMENT,
             using_database,
-            message: ErrorsMessages.HEADER_AUTHORIZATION_BEARER_TOKEN_INVALID,
+            error: error.message,
+            stack: error.stack,
         };
     }
 };

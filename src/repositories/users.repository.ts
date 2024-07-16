@@ -1,7 +1,6 @@
 import type { Expense, User } from "@prisma/client";
 import prisma from "../config/prisma.config";
 import { ErrorsMessages } from "src/utils/errors-messages.util";
-import { UserUpdateDTO } from "src/use-cases/user-update.use-case";
 
 interface UserRepositoryCreateDTO {
     id: string;
@@ -11,6 +10,13 @@ interface UserRepositoryCreateDTO {
     jwt_token: string;
 }
 
+interface UserRepositoryUpdateDTO {
+    name?: string;
+    email: string;
+    password?: string;
+    reset_password_token?: string;
+}
+
 export interface UsersRepositoryPort {
     findAll(): Promise<User[]>;
     findById(id: string): Promise<User>;
@@ -18,10 +24,10 @@ export interface UsersRepositoryPort {
     findByEmailAllExpenses(email: string): Promise<Expense[]>;
     findByEmailExpenseId(email: string, expenseId: string): Promise<Expense>;
     create(dto: UserRepositoryCreateDTO): Promise<User>;
-    update(dto: any): Promise<User>;
+    update(dto: UserRepositoryUpdateDTO): Promise<User>;
     delete(id: string): Promise<User>;
     findByEmailAndResetPasswordToken(email: string, reset_password_token: string): Promise<User | null>;
-    updateResetPasswordToken({ email, reset_password_token, reset_password_token_expires_at }): Promise<User>;
+    createResetPasswordToken({ email, reset_password_token, reset_password_token_expires_at }): Promise<User>;
 }
 
 export default class UsersRepository implements UsersRepositoryPort {
@@ -264,7 +270,7 @@ export default class UsersRepository implements UsersRepositoryPort {
         }
     }
 
-    async update({ name, email, password, reset_password_token }: UserUpdateDTO): Promise<User> {
+    async update({ name, email, password, reset_password_token }: UserRepositoryUpdateDTO): Promise<User> {
         if (Bun.env.USE_JSON_DATABASE === "true") {
             try {
                 const file = await Bun.file("./src/repositories/jsons/users.json").json();
@@ -287,7 +293,7 @@ export default class UsersRepository implements UsersRepositoryPort {
 
                 return file[index];
             } catch (error: any) {
-                throw new Error(`Error updating User: ${error.message}`);
+                throw new Error(error.message);
             }
         } else {
             try {
@@ -349,7 +355,7 @@ export default class UsersRepository implements UsersRepositoryPort {
         }
     }
 
-    async updateResetPasswordToken({ email, reset_password_token, reset_password_token_expires_at }): Promise<User> {
+    async createResetPasswordToken({ email, reset_password_token, reset_password_token_expires_at }): Promise<User> {
         if (Bun.env.USE_JSON_DATABASE === "true") {
             try {
                 const file = await Bun.file("./src/repositories/jsons/users.json").json();

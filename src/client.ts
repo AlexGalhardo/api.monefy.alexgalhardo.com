@@ -18,6 +18,15 @@ const client = treaty<App>(serverDNS);
         password: "client_testQWE!123",
     });
 
+    // const { data: forgetPassword } = await client["forget-password"].post({
+    // 	email: "client_test@gmail.com"
+    // });
+
+    // const { data: resetPassword } = await client["reset-password"]({ email: 'email' }).post({
+    // 	new_password: "client_test@gmail.com",
+    // 	confirm_new_password: "client_testQWE!123",
+    // });
+
     const { data: newExpenseCreated } = await client.expenses.index.post(
         {
             description: "new expense client test",
@@ -51,6 +60,10 @@ const client = treaty<App>(serverDNS);
     console.log("signup => ", signup);
 
     console.log("login => ", login);
+
+    // console.log("forgetPassword => ", forgetPassword);
+
+    // console.log("resetPassword => ", resetPassword);
 
     console.log("getExpenseById => ", getExpenseById);
 

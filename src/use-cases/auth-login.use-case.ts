@@ -9,6 +9,7 @@ interface AuthLoginUseCaseResponse {
     success: boolean;
     data?: User;
     message?: string;
+    error?: string;
 }
 
 export interface AuthLoginDTO {
@@ -31,8 +32,9 @@ export default class AuthLoginUseCase implements AuthLoginUseCasePort {
         const userFound = await this.usersRepository.findByEmail(email);
 
         if (userFound) {
-            if (!(await Bcrypt.compare(password, userFound.password)))
-                return { success: false, message: ErrorsMessages.EMAIL_OR_PASSWORD_INVALID };
+            const passwordIsCorrect = await Bcrypt.compare(password, userFound.password);
+
+            if (!passwordIsCorrect) return { success: false, error: ErrorsMessages.EMAIL_OR_PASSWORD_INVALID };
 
             const jwt_token = jwt.sign({ user_email: userFound.email }, Bun.env.JWT_SECRET as string);
 
@@ -41,8 +43,10 @@ export default class AuthLoginUseCase implements AuthLoginUseCasePort {
             const userJwtTokenUpdated = await this.usersRepository.update(userFound);
 
             if (userJwtTokenUpdated) return { success: true, data: userFound };
+
+            throw new Error(ErrorsMessages.EMAIL_OR_PASSWORD_INVALID);
         }
 
-        throw new Error(ErrorsMessages.USER_NOT_FOUND);
+        throw new Error(ErrorsMessages.EMAIL_OR_PASSWORD_INVALID);
     }
 }

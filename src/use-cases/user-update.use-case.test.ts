@@ -45,7 +45,7 @@ describe("...Testing User Update Use Case", () => {
             .then((res) => res.json());
 
         expect(responseUpdateUser.success).toBeTrue();
-        expect(responseUpdateUser.message).toBe("User updated");
+        expect(responseUpdateUser.message).toBe("User name updated");
 
         afterAll(async () => {
             await new UsersRepository().delete(response.data.id);

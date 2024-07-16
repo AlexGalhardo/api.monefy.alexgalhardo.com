@@ -7,10 +7,11 @@ import TelegramLog from "src/config/telegram-logger.config";
 
 interface UserUpdateUseCaseResponse {
     success: boolean;
-    message?: string;
+    error?: string;
+    data?: User;
 }
 
-export interface UserUpdateDTO {
+export interface UserUpdateUseCaseDTO {
     name?: string;
     email: string;
     password?: string;
@@ -18,33 +19,38 @@ export interface UserUpdateDTO {
 }
 
 export interface UserUpdateUseCasePort {
-    execute(authSignupPayload: UserUpdateDTO): Promise<UserUpdateUseCaseResponse>;
+    execute(authSignupPayload: UserUpdateUseCaseDTO): Promise<UserUpdateUseCaseResponse>;
 }
 
 export default class UserUpdateUseCase implements UserUpdateUseCasePort {
     constructor(private readonly usersRepository: UsersRepositoryPort = new UsersRepository()) {}
 
-    async execute(userUpdatePayload: UserUpdateDTO): Promise<UserUpdateUseCaseResponse> {
+    async execute(userUpdatePayload: UserUpdateUseCaseDTO): Promise<UserUpdateUseCaseResponse> {
         UserUpdateValidator.parse(userUpdatePayload);
+
+        console.log("userUpdatePayload => ", userUpdatePayload);
 
         const { name, email, password, reset_password_token } = userUpdatePayload;
 
         const userFound = await this.usersRepository.findByEmail(email);
 
+        console.log("user found => ", userFound);
+
         if (userFound) {
             const userUpdated = await this.usersRepository.update({
                 name: name ?? userFound.name,
-                password: (await Bcrypt.hash(password as string)) ?? userFound.password,
-                reset_password_token,
+                email,
+                password: password ? await Bcrypt.hash(password as string) : userFound.password,
+                reset_password_token: String(reset_password_token) ?? userFound.reset_password_token,
             });
 
             if (userUpdated) {
                 TelegramLog.info(`\USER UPDATED\n\n ${JSON.stringify(userUpdated)}\n`);
 
-                return { success: true, message: "User updated" };
+                return { success: true, data: userUpdated };
             }
         }
 
-        throw new Error(ErrorsMessages.EMAIL_OR_PASSWORD_INVALID);
+        throw new Error(ErrorsMessages.HEADER_AUTHORIZATION_BEARER_TOKEN_INVALID);
     }
 }
