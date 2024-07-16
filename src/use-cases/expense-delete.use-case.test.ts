@@ -6,7 +6,6 @@ import { ExpenseCategory } from "@prisma/client";
 
 describe("...Testing Expense Delete Use Case", () => {
     it("should delete expense using user owner jwt token", async () => {
-        // signup user first
         const user = {
             name: "deletetest",
             email: "deletetest@gmail.com",
@@ -32,7 +31,6 @@ describe("...Testing Expense Delete Use Case", () => {
         expect(responseSignup.data.email).toBe(user.email);
         expect(responseSignup.data.jwt_token).toBeString();
 
-        // now create new expense using this user as owner
         const expense = {
             description: "creating new expense for delete test",
             category: ExpenseCategory.SHOP,
@@ -63,7 +61,6 @@ describe("...Testing Expense Delete Use Case", () => {
             updated_at: null,
         });
 
-        // now delete this expense created by its id
         const responseExpenseDeleted: any = await app
             .handle(
                 new Request(`http://localhost/expenses/${responseExpenseCreated.data.id}`, {
@@ -81,7 +78,6 @@ describe("...Testing Expense Delete Use Case", () => {
         expect(responseExpenseDeleted.using_database).toBe(using_database);
 
         afterAll(async () => {
-            // delete expense first, then user
             await new UsersRepository().delete(responseSignup.data.id);
         });
     });

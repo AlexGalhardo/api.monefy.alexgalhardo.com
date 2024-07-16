@@ -32,16 +32,6 @@ export const app = new Elysia()
     .post("/login", AuthController.login)
     .post("/forget-password", AuthController.forgetPassword)
     .post("/reset-password/:email/:token", AuthController.resetPassword)
-    // .guard(
-    // 	{
-    // 		beforeHandle: ValidateHeaderAuthorizationBearerTokenMiddleware,
-    // 	},
-    // 	(app) =>
-    // 		app.group("/user", (app) =>
-    // 			app
-    // 				.patch("/", UserController.update)
-    // 		),
-    // )
     .guard(
         {
             beforeHandle: ValidateHeaderAuthorizationBearerTokenMiddleware,
@@ -63,10 +53,12 @@ export const app = new Elysia()
 
 export const serverDNS = `${app.server?.hostname}:${app.server?.port}`;
 
-console.log(`\n\n...🦊 API Money Manager Server [APP_URL] is running at: http://${serverDNS}`);
+console.log(`\n\n...🦊 API Money Manager Server is running at: http://${serverDNS}`);
 
 console.log(`\n\n...🦊 API Money Manager environment: ${Bun.env.ENVIRONMENT}`);
 
-console.log(`\n\n...🦊 API Money Manager using database: ${using_database}\n\n`);
+console.log(`\n\n...🦊 API Money Manager using database: ${using_database}`);
+
+console.log(`\n\n...🦊 API Money Manager use RabbitMQ: ${Bun.env.USE_RABBITMQ}\n\n`);
 
 export type App = typeof app;

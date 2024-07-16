@@ -28,13 +28,9 @@ export default class UserUpdateUseCase implements UserUpdateUseCasePort {
     async execute(userUpdatePayload: UserUpdateUseCaseDTO): Promise<UserUpdateUseCaseResponse> {
         UserUpdateValidator.parse(userUpdatePayload);
 
-        console.log("userUpdatePayload => ", userUpdatePayload);
-
         const { name, email, password, reset_password_token } = userUpdatePayload;
 
         const userFound = await this.usersRepository.findByEmail(email);
-
-        console.log("user found => ", userFound);
 
         if (userFound) {
             const userUpdated = await this.usersRepository.update({

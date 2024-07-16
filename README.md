@@ -15,23 +15,22 @@
    - Install Docker & docker-compose: <https://docs.docker.com/engine/install/>
    - Install Bun: <https://bun.sh/docs/installation>
 
+- To see RabbitMQ Management UI, go to: http://localhost:15672
+   - Username: guest
+   - Password: guest
+
 1. Clone repository
 ```bash
 git clone git@github.com:AlexGalhardo/api-money-manager.alexgalhardo.com.git
 ```
 
-2. Install dependencies
-```bash
-bun install
-```
-
-3. Create `.env` file
+2. Create `.env` file
 ```bash
 cp .env.example .env
 ```
 - Dont forget to setup your credentials in `.env` file
 
-4. Create migrations, seeds and up server
+3. Install dependencies, create migrations & seeds, up docker containers and server
 ```bash
 chmod +x setup.sh && ./setup.sh
 ```

@@ -4,7 +4,6 @@ import * as jwt from "jsonwebtoken";
 import UsersRepository from "src/repositories/users.repository";
 
 const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }: any) => {
-    console.log("entrou ValidateHeaderAuthorizationBearerTokenMiddleware");
     try {
         if (!bearer) {
             set.status = 401;

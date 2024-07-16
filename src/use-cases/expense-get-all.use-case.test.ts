@@ -7,7 +7,6 @@ import ExpensesRepository from "../repositories/expenses.repository";
 
 describe("...Testing Expense Get All Use Case", () => {
     it("should get all expenses", async () => {
-        // signup user first
         const user = {
             name: "test signup get all expenses",
             email: "test.signup.get.all.expenses@gmail.com",
@@ -33,7 +32,6 @@ describe("...Testing Expense Get All Use Case", () => {
         expect(responseSignup.data.email).toBe(user.email);
         expect(responseSignup.data.jwt_token).toBeString();
 
-        // now create 2 new expense using this user as owner
         const firstExpense = {
             description: "creating first expense",
             category: ExpenseCategory.SHOP,
@@ -75,7 +73,6 @@ describe("...Testing Expense Get All Use Case", () => {
         expect(responseFirstExpenseCreated.success).toBeTrue();
         expect(responseSecondExpenseCreated.success).toBeTrue();
 
-        // now get all expenses from this user, data length must be 2
         const responseExpenseUpdated: any = await app
             .handle(
                 new Request(`http://localhost/expenses`, {

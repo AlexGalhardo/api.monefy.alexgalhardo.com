@@ -2,13 +2,14 @@ import { afterAll, describe, expect, it } from "bun:test";
 import { app } from "../server";
 import { using_database } from "../utils/constants.util";
 import UsersRepository from "../repositories/users.repository";
+import { faker } from "@faker-js/faker";
 
 describe("...Testing User Update Use Case", () => {
     it("should signup user and update its name and password", async () => {
         const user = {
-            name: "test update user",
-            email: "test.update.user@gmail.com",
-            password: "testupdateuserQWE!123",
+            name: faker.string.uuid(),
+            email: faker.internet.email(),
+            password: "testPasswordQWE!123",
         };
 
         const response: any = await app
@@ -35,17 +36,19 @@ describe("...Testing User Update Use Case", () => {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${response.data.jwt_token}`,
                     },
                     body: JSON.stringify({
                         name: "User name updated",
-                        password: "newPassword",
+                        email: user.email,
+                        password: "newPasswordQWE!123",
                     }),
                 }),
             )
             .then((res) => res.json());
 
         expect(responseUpdateUser.success).toBeTrue();
-        expect(responseUpdateUser.message).toBe("User name updated");
+        expect(responseUpdateUser.data.name).toBe("User name updated");
 
         afterAll(async () => {
             await new UsersRepository().delete(response.data.id);

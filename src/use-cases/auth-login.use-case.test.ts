@@ -2,14 +2,14 @@ import { afterAll, describe, expect, it } from "bun:test";
 import { app } from "../server";
 import { using_database } from "../utils/constants.util";
 import UsersRepository from "../repositories/users.repository";
+import { faker } from "@faker-js/faker";
 
 describe("...Testing Auth Login Use Case", () => {
     it("should login user", async () => {
-        // signup user first
         const user = {
-            name: "test signup login",
-            email: "test.signup.login@gmail.com",
-            password: "testsignuploginQWE!123",
+            name: faker.string.uuid(),
+            email: faker.internet.email(),
+            password: "testPasswordQWE!123",
         };
 
         const responseSignup: any = await app
@@ -30,7 +30,6 @@ describe("...Testing Auth Login Use Case", () => {
         expect(responseSignup.data.name).toBe(user.name);
         expect(responseSignup.data.email).toBe(user.email);
 
-        // login user now
         const responseLogin: any = await app
             .handle(
                 new Request("http://localhost/login", {
