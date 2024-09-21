@@ -1,8 +1,5 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
 bun run format
 
-# bun run test
+bun run test:integration
 
-# bun run build
+bun run build

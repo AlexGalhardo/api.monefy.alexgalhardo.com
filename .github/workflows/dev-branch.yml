@@ -12,8 +12,6 @@ jobs:
   test:
     name: Lint, Tests And Build
     runs-on: ubuntu-latest
-    # env:
-    #    USE_JSON_DATABASE: true
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
@@ -24,5 +22,4 @@ jobs:
 
       - run: bun install
       - run: bun run format
-    # - run: bun run test
       - run: bun run build

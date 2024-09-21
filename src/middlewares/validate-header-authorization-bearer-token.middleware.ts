@@ -1,7 +1,7 @@
-import { using_database } from "src/utils/constants.util";
-import { ErrorsMessages } from "src/utils/errors-messages.util";
 import * as jwt from "jsonwebtoken";
 import UsersRepository from "src/repositories/users.repository";
+import { using_database } from "src/utils/constants.util";
+import { ErrorsMessages } from "src/utils/errors-messages.util";
 
 const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }: any) => {
     try {

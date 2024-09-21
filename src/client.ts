@@ -1,6 +1,6 @@
 import { treaty } from "@elysiajs/eden";
-import { serverDNS, type App } from "./server";
 import { ExpenseCategory } from "@prisma/client";
+import { type App, serverDNS } from "./server";
 
 const client = treaty<App>(serverDNS);
 

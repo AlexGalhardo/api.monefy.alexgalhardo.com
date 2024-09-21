@@ -1,12 +1,12 @@
-import { Elysia } from "elysia";
-import { swagger } from "@elysiajs/swagger";
 import { bearer } from "@elysiajs/bearer";
-import HealthCheckController from "./controllers/health-check.controller";
-import AuthController from "./controllers/auth.controller";
-import ExpensesController from "./controllers/expenses.controller";
+import { swagger } from "@elysiajs/swagger";
+import { Elysia } from "elysia";
 import ValidateHeaderAuthorizationBearerTokenMiddleware from "./middlewares/validate-header-authorization-bearer-token.middleware";
+import AuthController from "./modules/auth/auth.controller";
+import ExpensesController from "./modules/expenses/expenses.controller";
+import HealthCheckController from "./modules/health-check/health-check.controller";
+import UserController from "./modules/user/user.controller";
 import { using_database } from "./utils/constants.util";
-import UserController from "./controllers/user.controller";
 
 export const app = new Elysia()
     .use(bearer())
@@ -53,12 +53,12 @@ export const app = new Elysia()
 
 export const serverDNS = `${app.server?.hostname}:${app.server?.port}`;
 
-console.log(`\n\n...🦊 API Money Manager Server is running at: http://${serverDNS}`);
+console.log(`\n\n...🦊 api.monefy.alexgalhardo.com Server is running at: http://${serverDNS}`);
 
-console.log(`\n\n...🦊 API Money Manager environment: ${Bun.env.ENVIRONMENT}`);
+console.log(`\n\n...🦊 api.monefy.alexgalhardo.com environment: ${Bun.env.ENVIRONMENT}`);
 
-console.log(`\n\n...🦊 API Money Manager using database: ${using_database}`);
+console.log(`\n\n...🦊 api.monefy.alexgalhardo.com using database: ${using_database}`);
 
-console.log(`\n\n...🦊 API Money Manager use RabbitMQ: ${Bun.env.USE_RABBITMQ}\n\n`);
+console.log(`\n\n...🦊 api.monefy.alexgalhardo.com use RabbitMQ: ${Bun.env.USE_RABBITMQ}\n\n`);
 
 export type App = typeof app;

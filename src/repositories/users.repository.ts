@@ -1,6 +1,6 @@
 import type { Expense, User } from "@prisma/client";
-import prisma from "../config/prisma.config";
 import { ErrorsMessages } from "src/utils/errors-messages.util";
+import prisma from "../config/prisma.config";
 
 interface UserRepositoryCreateDTO {
     id: string;
@@ -241,7 +241,7 @@ export default class UsersRepository implements UsersRepositoryPort {
                     password,
                     reset_password_token: null,
                     reset_password_token_expires_at: null,
-                    created_at: new Date().toISOString(),
+                    created_at: new Date(),
                     updated_at: null,
                 };
 
@@ -262,7 +262,7 @@ export default class UsersRepository implements UsersRepositoryPort {
                         email,
                         password,
                         jwt_token,
-                        created_at: new Date().toISOString(),
+                        created_at: new Date(),
                     },
                 });
             } catch (error: any) {
@@ -286,11 +286,9 @@ export default class UsersRepository implements UsersRepositoryPort {
                     file[index].reset_password_token_expires_at = null;
                 }
 
-                console.log("jwt que chegou no update é => ", jwt_token);
-
                 file[index].name = name ?? file[index].name;
                 file[index].jwt_token = jwt_token ?? file[index].jwt_token;
-                file[index].updated_at = new Date().toISOString();
+                file[index].updated_at = new Date();
 
                 await Bun.write("./src/repositories/jsons/users.json", JSON.stringify(file, null, 4));
 
@@ -304,10 +302,10 @@ export default class UsersRepository implements UsersRepositoryPort {
                     where: { email },
                 });
 
-                let userName = name ?? user?.name;
-                let newPassword = password ?? user?.password;
-                let resetPasswordToken = reset_password_token ?? user?.reset_password_token;
-                let jwtToken = jwt_token ?? user?.jwt_token;
+                const userName = name ?? user?.name;
+                const newPassword = password ?? user?.password;
+                const resetPasswordToken = reset_password_token ?? user?.reset_password_token;
+                const jwtToken = jwt_token ?? user?.jwt_token;
 
                 return await prisma.user.update({
                     where: {
@@ -321,7 +319,7 @@ export default class UsersRepository implements UsersRepositoryPort {
                             ? null
                             : user?.reset_password_token_expires_at,
                         jwt_token: jwtToken,
-                        updated_at: new Date().toISOString(),
+                        updated_at: new Date(),
                     },
                 });
             } catch (error: any) {
@@ -371,7 +369,7 @@ export default class UsersRepository implements UsersRepositoryPort {
 
                 file[index].reset_password_token = reset_password_token;
                 file[index].reset_password_token_expires_at = reset_password_token_expires_at;
-                file[index].updated_at = new Date().toISOString();
+                file[index].updated_at = new Date();
 
                 await Bun.write("./src/repositories/jsons/users.json", JSON.stringify(file, null, 4));
 
@@ -388,7 +386,7 @@ export default class UsersRepository implements UsersRepositoryPort {
                     data: {
                         reset_password_token,
                         reset_password_token_expires_at,
-                        updated_at: new Date().toISOString(),
+                        updated_at: new Date(),
                     },
                 });
             } catch (error: any) {
