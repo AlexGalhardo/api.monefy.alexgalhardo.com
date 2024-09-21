@@ -1,9 +1,9 @@
-import type { Expense, User } from "@prisma/client";
 import { randomUUID } from "node:crypto";
-import prisma from "../config/prisma.config";
-import { ExpenseCreateDTO } from "src/use-cases/expense-create.use-case";
-import { ExpenseUpdateDTO } from "src/use-cases/expense-update.use-case";
+import type { Expense, User } from "@prisma/client";
+import type { ExpenseCreateDTO } from "src/modules/expenses/expense-create.use-case";
+import type { ExpenseUpdateDTO } from "src/modules/expenses/expense-update.use-case";
 import { ErrorsMessages } from "src/utils/errors-messages.util";
+import prisma from "../config/prisma.config";
 
 export interface ExpensesRepositoryPort {
     findAll(): Promise<Expense[]>;
@@ -94,7 +94,7 @@ export default class ExpensesRepository implements ExpensesRepositoryPort {
                     description,
                     category,
                     amount,
-                    created_at: new Date().toISOString(),
+                    created_at: new Date(),
                     updated_at: null,
                 };
 
@@ -115,7 +115,7 @@ export default class ExpensesRepository implements ExpensesRepositoryPort {
                         description,
                         category,
                         amount,
-                        created_at: new Date().toISOString(),
+                        created_at: new Date(),
                     },
                 });
             } catch (error: any) {
@@ -136,7 +136,7 @@ export default class ExpensesRepository implements ExpensesRepositoryPort {
                 file[index].description = description;
                 file[index].category = category;
                 file[index].amount = amount;
-                file[index].updated_at = new Date().toISOString();
+                file[index].updated_at = new Date();
 
                 await Bun.write("./src/repositories/jsons/expenses.json", JSON.stringify(file, null, 4));
 
@@ -154,7 +154,7 @@ export default class ExpensesRepository implements ExpensesRepositoryPort {
                         description,
                         category,
                         amount,
-                        updated_at: new Date().toISOString(),
+                        updated_at: new Date(),
                     },
                 });
             } catch (error: any) {

@@ -1,3 +1,0 @@
-GET http://localhost:3000/expenses/f0eac276-0854-4b4d-a9b5-9f9e5ed56219
-content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoiYWxleEBnbWFpbC5jb20iLCJpYXQiOjE3MTk4NzA4OTZ9.c5PGovqgKz4m7s6BFVLPn3-pITTyeDpwbDL7O-q9-Go

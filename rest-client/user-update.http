@@ -1,8 +1,0 @@
-PATCH http://localhost:3000/user
-content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoicmFiYml0bXExM0BnbWFpbC5jb20iLCJpYXQiOjE3MjExNDE1OTJ9.-1-FoBd6MfeU-WKzYvhibm5rDOP4IJx2sHOg-cw1UIE
-
-{
-	"email": "rabbitmq13@gmail.com",
-	"name": "novo nome"
-}

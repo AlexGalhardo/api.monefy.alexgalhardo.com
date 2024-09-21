@@ -1,13 +1,13 @@
 <div align="center">
-  	<h1 align="center"><a href="https://api-money-manager.alexgalhardo.com" target="_blank">api-money-manager.alexgalhardo.com v2</a></h1>
+  	<h1 align="center"><a href="https://api.monefy.alexgalhardo.com" target="_blank">api.monefy.alexgalhardo.com</a></h1>
 </div>
 
 ## Introduction
 
-- API source code for money manager application.
-- Front End Source Code: <https://github.com/AlexGalhardo/money-manager.alexgalhardo.com>
-- Front End Live: <https://money-manager.alexgalhardo.com>
-- Swagger API Documentation live: <https://api-money-manager.alexgalhardo.com/swagger>
+- API source code using Bun and ElysiaJS
+- Front End Source Code: <https://github.com/AlexGalhardo/monefy.alexgalhardo.com>
+- Front End Live: <https://monefy.alexgalhardo.com>
+- Swagger API Documentation live: <https://api.monefy.alexgalhardo.com/swagger>
 
 ## Development Setup Local
 
@@ -18,6 +18,8 @@
 - To see RabbitMQ Management UI, go to: http://localhost:15672
    - Username: guest
    - Password: guest
+
+- To see Redis Commander UI, go to: http://localhost:8082
 
 1. Clone repository
 ```bash
