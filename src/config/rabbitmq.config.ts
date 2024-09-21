@@ -119,8 +119,8 @@ export default class RabbitMQ {
                             await this.smtp.sendMail({
                                 from: process.env.SMTP_EMAIL_FROM,
                                 to: "aleexgvieira@gmail.com",
-                                subject: "Forget password api-money-manager",
-                                html: `<p>Forget password link:</p><p>User: ${content}</p>`,
+                                subject: "FORGET PASSWORD money.alexgalhardo.com",
+                                html: `<p>Resye your password clicking this link:</p><p>User: ${content}</p>`,
                             });
 
                             TelegramLog.info(`Forget Password: ${content}`);

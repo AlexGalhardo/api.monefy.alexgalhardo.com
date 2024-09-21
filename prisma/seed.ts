@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, UserRole } from "@prisma/client";
 import Bcrypt from "../src/utils/bcrypt.util";
 
 const prisma = new PrismaClient({
@@ -15,10 +15,11 @@ const seedDatabase = async () => {
 				name: "ADMIN",
 				email: "admin@gmail.com",
 				jwt_token: null,
+				role: UserRole.ADMIN,
 				password: await Bcrypt.hash("adminQWE!123"),
 				reset_password_token: null,
 				reset_password_token_expires_at: null,
-				created_at: new Date().toISOString(),
+				created_at: new Date(),
 				updated_at: null,
 			},
 			{
@@ -28,7 +29,7 @@ const seedDatabase = async () => {
 				password: await Bcrypt.hash("testQWE!123"),
 				reset_password_token: null,
 				reset_password_token_expires_at: null,
-				created_at: new Date().toISOString(),
+				created_at: new Date(),
 				updated_at: null,
 			},
 		],

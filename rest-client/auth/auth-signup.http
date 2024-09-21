@@ -1,0 +1,9 @@
+# POST http://localhost:3000/signup
+POST https://api.monefy.alexgalhardo.com/signup
+content-type: application/json
+
+{
+	"name": "User Signup",
+	"email": "user.signup@gmail.com",
+	"password": "usersignupQWE!123"
+}

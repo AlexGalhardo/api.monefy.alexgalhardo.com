@@ -1,11 +1,11 @@
-import * as https from "https";
+import * as https from "node:https";
 
 class TelegramLogger {
     private baseUrl: string;
 
     constructor(
-        private token: string = "123",
-        private channelId: number = 123,
+        private token = "123",
+        private channelId = 123,
     ) {
         this.isThereToken(token);
         this.isThereChannelId(channelId);
@@ -25,7 +25,7 @@ class TelegramLogger {
     }
 
     private log(logType: string, message: string) {
-        const messageToSend = `${logType}\n\n ${message} \n\n <b>Created at:</b> ${new Date().toISOString()}`;
+        const messageToSend = `${logType}\n\n ${message} \n\n <b>Created at:</b> ${new Date()}`;
 
         const urlParams = encodeURI(`chat_id=${this.channelId}&text=${messageToSend}&parse_mode=HTML`);
 
@@ -54,11 +54,11 @@ class TelegramLogger {
     }
 
     error(message: string) {
-        this.log(`🚨 ERROR 🚨`, message);
+        this.log("🚨 ERROR 🚨", message);
     }
 
     info(message: string) {
-        this.log(`💬 INFO 💬`, message);
+        this.log("💬 INFO 💬", message);
     }
 }
 
