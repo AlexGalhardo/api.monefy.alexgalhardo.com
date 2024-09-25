@@ -9,47 +9,47 @@ import UserController from "./modules/user/user.controller";
 import { using_database } from "./utils/constants.util";
 
 export const app = new Elysia()
-    .use(bearer())
-    .use(
-        swagger({
-            documentation: {
-                info: {
-                    title: "Money Manager API Swagger Documenttion",
-                    version: "2.0.0",
-                },
-            },
-        }),
-    )
-    .onError((context) => {
-        return {
-            success: false,
-            error: context.error.toString(),
-            context: context,
-        };
-    })
-    .get("/", HealthCheckController.index)
-    .post("/signup", AuthController.signup)
-    .post("/login", AuthController.login)
-    .post("/forget-password", AuthController.forgetPassword)
-    .post("/reset-password/:email/:token", AuthController.resetPassword)
-    .guard(
-        {
-            beforeHandle: ValidateHeaderAuthorizationBearerTokenMiddleware,
-        },
-        (app) =>
-            app
-                .group("/expenses", (app) =>
-                    app
-                        .get("/", ExpensesController.getAll)
-                        .get("/:id", ExpensesController.getById)
-                        .get("/statistics", ExpensesController.getStatistics)
-                        .post("/", ExpensesController.create)
-                        .patch("/:id", ExpensesController.update)
-                        .delete("/:id", ExpensesController.delete),
-                )
-                .group("/user", (app) => app.patch("/", UserController.update)),
-    )
-    .listen(Bun.env.PORT ?? 9000);
+	.use(bearer())
+	.use(
+		swagger({
+			documentation: {
+				info: {
+					title: "Monefy API Swagger Documenttion",
+					version: "3.0.0",
+				},
+			},
+		}),
+	)
+	.onError((context) => {
+		return {
+			success: false,
+			error: context.error.toString(),
+			context: context,
+		};
+	})
+	.get("/", HealthCheckController.index)
+	.post("/signup", AuthController.signup)
+	.post("/login", AuthController.login)
+	.post("/forget-password", AuthController.forgetPassword)
+	.post("/reset-password/:email/:token", AuthController.resetPassword)
+	.guard(
+		{
+			beforeHandle: ValidateHeaderAuthorizationBearerTokenMiddleware,
+		},
+		(app) =>
+			app
+				.group("/expenses", (app) =>
+					app
+						.get("/", ExpensesController.getAll)
+						.get("/:id", ExpensesController.getById)
+						.get("/statistics", ExpensesController.getStatistics)
+						.post("/", ExpensesController.create)
+						.patch("/:id", ExpensesController.update)
+						.delete("/:id", ExpensesController.delete),
+				)
+				.group("/user", (app) => app.patch("/", UserController.update)),
+	)
+	.listen(Bun.env.PORT ?? 3000);
 
 export const serverDNS = `${app.server?.hostname}:${app.server?.port}`;
 

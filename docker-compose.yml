@@ -1,13 +1,13 @@
 services:
-    postgres_api_money_manager:
+    postgres_api_monefy:
         image: postgres
-        container_name: postgres_api_money_manager
+        container_name: postgres_api_monefy
         environment:
             POSTGRES_PASSWORD: "postgres"
         ports:
             - "5432:5432"
         volumes:
-            - postgres_api_money_manager:/var/lib/postgresql
+            - postgres_api_monefy:/var/lib/postgresql
         networks:
             - network
 
@@ -44,5 +44,5 @@ networks:
         driver: bridge
 
 volumes:
-    postgres_api_money_manager:
+    postgres_api_monefy:
         driver: local

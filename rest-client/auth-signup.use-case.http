@@ -1,8 +1,0 @@
-POST http://localhost:3000/signup
-content-type: application/json
-
-{
-	"name": "test new account",
-	"email": "test.new.account@gmail.com",
-	"password": "testnewAccountQWE!123"
-}

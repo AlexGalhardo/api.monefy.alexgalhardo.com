@@ -1,1 +1,29 @@
-[]
+[
+    {
+        "id": "197c346e-3697-49de-b008-52ae86162277",
+        "user_email": "user.signup@gmail.com",
+        "description": "marmitex",
+        "category": "FOOD",
+        "amount": 2500,
+        "created_at": "2024-09-25T19:46:23.086Z",
+        "updated_at": null
+    },
+    {
+        "id": "ddce55cc-50c7-4683-bdaf-1d91a8cd7157",
+        "user_email": "user.signup@gmail.com",
+        "description": "steam deck 2",
+        "category": "SHOP",
+        "amount": 550000,
+        "created_at": "2024-09-25T19:48:38.635Z",
+        "updated_at": null
+    },
+    {
+        "id": "827afb62-2a4a-4d3b-80dc-e3f35909e989",
+        "user_email": "user.signup@gmail.com",
+        "description": "netflix",
+        "category": "ENTERTAINMENT",
+        "amount": 4500,
+        "created_at": "2024-09-25T19:48:59.062Z",
+        "updated_at": null
+    }
+]
