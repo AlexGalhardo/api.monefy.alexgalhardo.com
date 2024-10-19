@@ -12,48 +12,48 @@ import verifyEnvs from "./utils/verify-envs.util";
 verifyEnvs();
 
 export const app = new Elysia()
-    .use(bearer())
-    .use(
-        swagger({
-            documentation: {
-                info: {
-                    title: "Monefy API Swagger Documenttion",
-                    version: "3.0.0",
-                },
-            },
-        }),
-    )
-    .onError((context) => {
-        return {
-            success: false,
-            error: context.error.toString(),
-            context: context,
-        };
-    })
-    .get("/", () => ({ success: true, message: "API is on, lets gooo!" }))
-    .get("/health-check", HealthCheckController.index)
-    .post("/signup", AuthController.signup)
-    .post("/login", AuthController.login)
-    .post("/forget-password", AuthController.forgetPassword)
-    .post("/reset-password/:email/:token", AuthController.resetPassword)
-    .guard(
-        {
-            beforeHandle: ValidateHeaderAuthorizationBearerTokenMiddleware,
-        },
-        (app) =>
-            app
-                .group("/expenses", (app) =>
-                    app
-                        .get("/", ExpensesController.getAll)
-                        .get("/:id", ExpensesController.getById)
-                        .get("/statistics", ExpensesController.getStatistics)
-                        .post("/", ExpensesController.create)
-                        .patch("/:id", ExpensesController.update)
-                        .delete("/:id", ExpensesController.delete),
-                )
-                .group("/user", (app) => app.patch("/", UserController.update)),
-    )
-    .listen(Bun.env.SERVER_PORT ?? 3000);
+	.use(bearer())
+	.use(
+		swagger({
+			documentation: {
+				info: {
+					title: "Monefy API Swagger Documenttion",
+					version: "3.0.0",
+				},
+			},
+		}),
+	)
+	.onError((context) => {
+		return {
+			success: false,
+			error: context.error.toString(),
+			context: context,
+		};
+	})
+	.get("/", () => ({ success: true, message: "API is on, lets gooo!" }))
+	.get("/health-check", HealthCheckController.index)
+	.post("/signup", AuthController.signup)
+	.post("/login", AuthController.login)
+	.post("/forget-password", AuthController.forgetPassword)
+	.post("/reset-password/:email/:token", AuthController.resetPassword)
+	.guard(
+		{
+			beforeHandle: ValidateHeaderAuthorizationBearerTokenMiddleware,
+		},
+		(app) =>
+			app
+				.group("/expenses", (app) =>
+					app
+						.get("/", ExpensesController.getAll)
+						.get("/:id", ExpensesController.getById)
+						.get("/statistics", ExpensesController.getStatistics)
+						.post("/", ExpensesController.create)
+						.patch("/:id", ExpensesController.update)
+						.delete("/:id", ExpensesController.delete),
+				)
+				.group("/user", (app) => app.patch("/", UserController.update)),
+	)
+	.listen(Bun.env.SERVER_PORT ?? 3000);
 
 export const serverDNS = `${app.server?.hostname}:${app.server?.port}`;
 

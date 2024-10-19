@@ -25,12 +25,12 @@ CREATE TABLE "users" (
     "password" TEXT NOT NULL,
     "reset_password_token" TEXT,
     "reset_password_token_expires_at" TEXT,
-    "confirm_email_valited" BOOLEAN NOT NULL DEFAULT false,
+    "confirm_email_valited_at" TIMESTAMP(3),
     "confirm_email_token" TEXT,
     "confirm_email_token_expires_at" TIMESTAMP(3),
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3),
-    "deleted_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -42,9 +42,9 @@ CREATE TABLE "expenses" (
     "description" TEXT NOT NULL,
     "category" "ExpenseCategory" NOT NULL,
     "amount" INTEGER NOT NULL,
-    "created_at" TEXT NOT NULL,
-    "updated_at" TEXT,
-    "deleted_at" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3),
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "expenses_pkey" PRIMARY KEY ("id")
 );

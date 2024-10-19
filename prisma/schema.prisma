@@ -39,7 +39,7 @@ model User {
   reset_password_token            String? @unique
   reset_password_token_expires_at String?
 
-  confirm_email_valited          Boolean?  @default(false)
+  confirm_email_valited_at       DateTime?
   confirm_email_token            String?   @unique
   confirm_email_token_expires_at DateTime?
 

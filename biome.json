@@ -1,7 +1,7 @@
 {
 	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
 	"formatter": {
-		"indentStyle": "space",
+		"indentStyle": "tab",
 		"indentWidth": 4,
 		"lineWidth": 120
 	},
@@ -18,11 +18,32 @@
 			},
 			"style": {
 				"noUselessElse": "off",
-				"noNonNullAssertion": "off"
+				"noNonNullAssertion": "off",
+				"useImportType": "off"
 			},
 			"complexity": {
 				"noForEach": "off"
+			},
+			"correctness": {
+				"noUnusedVariables": "error",
+				"noUnusedImports": "error"
 			}
 		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double",
+			"lineWidth": 120
+		},
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		}
+	},
+	"files": {
+		"ignore": [
+			"node_modules",
+			"dist",
+			"package.json"
+		]
 	}
 }

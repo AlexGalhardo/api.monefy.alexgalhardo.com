@@ -1,8 +1,19 @@
 PATCH http://localhost:3000/user
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoicmFiYml0bXExM0BnbWFpbC5jb20iLCJpYXQiOjE3MjExNDE1OTJ9.-1-FoBd6MfeU-WKzYvhibm5rDOP4IJx2sHOg-cw1UIE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidXNlci5zaWdudXBAZ21haWwuY29tIiwiaWF0IjoxNzI5MzQ4OTg5fQ.emUHYCJ6XaWFB4xU7thc-iW4fFYO83hHBAPZ6vf-C2c
 
 {
-	"email": "rabbitmq13@gmail.com",
-	"name": "novo nome"
+	"name": "Nome Atualizado",
+	"password": "novasenhaBR@123",
+	"phone_number": "5518996999999",
+	"cpf": "82679646819",
+	"birth_date": "23-09-1997",
+	"address_street_name": "Rua Logo Ali",
+	"address_cep": "13560290",
+	"address_street_complement": "Perto do Bosque",
+	"address_street_number": 42,
+	"address_neighborhood": "Bairro",
+	"address_city": "Cidade",
+	"address_state": "Estado",
+	"address_country": "Brasil"
 }

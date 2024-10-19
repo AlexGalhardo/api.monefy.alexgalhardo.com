@@ -10,6 +10,7 @@
 		"format": "biome format src/ --fix",
 		"prisma:studio": "bunx prisma studio",
 		"prisma:format": "bunx prisma format",
+		"prisma:migrate": "bunx prisma migrate dev",
 		"build-server": "./server",
 		"build-client": "./client",
 		"build": "bun build --compile --minify ./src/server.ts --outfile server && bun build --compile --minify ./src/client.ts --outfile client",
