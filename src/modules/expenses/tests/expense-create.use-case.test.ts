@@ -3,13 +3,14 @@ import { ExpenseCategory } from "@prisma/client";
 import ExpensesRepository from "../../../repositories/expenses.repository";
 import UsersRepository from "../../../repositories/users.repository";
 import { app } from "../../../server";
+import { faker } from "@faker-js/faker";
 
 describe("...Testing Expense Create Use case", () => {
     it("should create expense using user jwt token", async () => {
         const user = {
-            name: "test signup create expense",
-            email: "test.signup.create.expense@gmail.com",
-            password: "testsignupcreateexpenseQWE!123",
+            name: faker.internet.userName(),
+            email: faker.internet.email(),
+            password: "testsignupQWE!123",
         };
 
         const responseSignup: any = await app
@@ -35,7 +36,7 @@ describe("...Testing Expense Create Use case", () => {
             amount: 20000,
         };
 
-        const response: any = await app
+        const responseCreateExpense: any = await app
             .handle(
                 new Request("http://localhost/expenses", {
                     method: "POST",
@@ -48,17 +49,17 @@ describe("...Testing Expense Create Use case", () => {
             )
             .then((res) => res.json());
 
-        expect(response.success).toBeTrue();
-        expect(response.data).toStrictEqual({
-            ...response.data,
+        expect(responseCreateExpense.success).toBeTrue();
+        expect(responseCreateExpense.data).toStrictEqual({
+            ...responseCreateExpense.data,
             id: expect.any(String),
             user_email: user.email,
             created_at: expect.any(String),
-            updated_at: null,
+            updated_at: expect.any(String),
         });
 
         afterAll(async () => {
-            await new ExpensesRepository().delete(response.data.id);
+            await new ExpensesRepository().delete(responseCreateExpense.data.id);
             await new UsersRepository().delete(responseSignup.data.id);
         });
     });

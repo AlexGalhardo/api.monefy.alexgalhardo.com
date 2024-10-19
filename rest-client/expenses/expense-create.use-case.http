@@ -1,6 +1,6 @@
 POST http://localhost:3000/expenses
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidXNlci5zaWdudXBAZ21haWwuY29tIiwiaWF0IjoxNzI3MjkzNTM2fQ.5POjMbcFGj77Jid2-qfn_8AagHQoMopJ8epsqS1q1ao
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidXNlci5zaWdudXBAZ21haWwuY29tIiwiaWF0IjoxNzI5MzQ0Mzg1fQ.vtcjXsmtgXEm8OyfTneUmSdp9PZkEpuQaf_fzIAMq6A
 
 {
 	"description": "netflix",

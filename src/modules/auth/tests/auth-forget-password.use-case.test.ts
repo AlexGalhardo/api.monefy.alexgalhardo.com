@@ -1,14 +1,14 @@
 import { afterAll, describe, expect, it } from "bun:test";
 import UsersRepository from "../../../repositories/users.repository";
 import { app } from "../../../server";
+import { faker } from "@faker-js/faker";
 
 describe("...Testing Forget Password Use Case", () => {
     it("should login user", async () => {
-        // signup user first
         const user = {
-            name: "test Forget password",
-            email: "test.forget.password@gmail.com",
-            password: "testforgetpasswordQWE!123",
+            name: faker.string.uuid(),
+            email: faker.internet.email(),
+            password: "testPasswordQWE!123",
         };
 
         const responseSignup: any = await app

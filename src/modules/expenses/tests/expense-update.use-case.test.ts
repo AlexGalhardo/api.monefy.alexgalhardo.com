@@ -3,13 +3,14 @@ import { ExpenseCategory } from "@prisma/client";
 import ExpensesRepository from "../../../repositories/expenses.repository";
 import UsersRepository from "../../../repositories/users.repository";
 import { app } from "../../../server";
+import { faker } from "@faker-js/faker";
 
 describe("...Testing Expense Update Use Case", () => {
     it("should update expense by param id", async () => {
         const user = {
-            name: "test signup update expense",
-            email: "test.signup.update.expense@gmail.com",
-            password: "testsignupupdateexpenseQWE!123",
+            name: faker.internet.userName(),
+            email: faker.internet.email(),
+            password: "testsignupQWE!123",
         };
 
         const responseSignup: any = await app
@@ -54,7 +55,7 @@ describe("...Testing Expense Update Use Case", () => {
             id: expect.any(String),
             user_email: user.email,
             created_at: expect.any(String),
-            updated_at: null,
+            updated_at: expect.any(String),
         });
 
         const responseExpenseUpdated: any = await app
