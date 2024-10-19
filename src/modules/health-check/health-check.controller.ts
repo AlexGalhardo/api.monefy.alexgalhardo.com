@@ -4,9 +4,9 @@ export default class HealthCheckController {
     static async index() {
         return {
             success: true,
-            message: "API is On, lets gooo!",
+            message: "API is on, lets gooo!",
             environment: Bun.env.NODE_ENV,
-            using_database,
+            database: using_database,
         };
     }
 }
