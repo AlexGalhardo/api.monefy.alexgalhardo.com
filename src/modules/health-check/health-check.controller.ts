@@ -5,7 +5,7 @@ export default class HealthCheckController {
         return {
             success: true,
             message: "API is On, lets gooo!",
-            environment: Bun.env.ENVIRONMENT,
+            environment: Bun.env.NODE_ENV,
             using_database,
         };
     }

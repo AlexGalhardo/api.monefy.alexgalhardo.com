@@ -11,7 +11,7 @@ const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }:
 
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
+                environment: Bun.env.NODE_ENV,
                 using_database,
                 message: ErrorsMessages.HEADER_AUTHORIZATION_BEARER_TOKEN_REQUIRED,
             };
@@ -25,7 +25,7 @@ const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }:
             set.status = 401;
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
+                environment: Bun.env.NODE_ENV,
                 using_database,
                 error: ErrorsMessages.HEADER_AUTHORIZATION_BEARER_TOKEN_INVALID,
             };
@@ -34,7 +34,7 @@ const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }:
         set.status = 401;
         return {
             success: false,
-            environment: Bun.env.ENVIRONMENT,
+            environment: Bun.env.NODE_ENV,
             using_database,
             error: error.message,
             stack: error.stack,

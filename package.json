@@ -19,22 +19,21 @@
 		"seed": "ts-node --transpile-only --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
 	},
 	"dependencies": {
-		"@biomejs/biome": "1.9.2",
+		"@biomejs/biome": "1.9.4",
 		"@elysiajs/bearer": "^1.1.2",
 		"@elysiajs/eden": "^1.1.3",
-		"@elysiajs/swagger": "1.1.1",
-		"@faker-js/faker": "^9.0.2",
-		"@prisma/client": "^5.20.0",
+		"@elysiajs/swagger": "1.1.5",
+		"@faker-js/faker": "^9.0.3",
+		"@prisma/client": "^5.21.1",
 		"@types/bcryptjs": "^2.4.6",
 		"@types/nodemailer": "^6.4.16",
 		"amqplib": "^0.10.4",
 		"bcryptjs": "^2.4.3",
 		"cpf-cnpj-validator": "1.0.3",
 		"dayjs": "1.11.13",
-		"elysia": "^1.1.16",
+		"elysia": "^1.1.22",
 		"i": "^0.3.7",
 		"ioredis": "5.4.1",
-		"joi": "^17.13.3",
 		"jsonwebtoken": "^9.0.2",
 		"nodemailer": "^6.9.15",
 		"rimraf": "6.0.1",
@@ -46,13 +45,66 @@
 		"bun-types": "latest",
 		"husky": "^9.1.6",
 		"prettier": "^3.3.3",
-		"prisma": "^5.20.0",
+		"prisma": "^5.21.1",
 		"ts-node": "^10.9.2",
-		"typescript": "^5.6.2"
+		"typescript": "^5.6.3",
+		"release-it": "^17.10.0",
+		"@commitlint/cli": "^19.5.0",
+		"@commitlint/config-conventional": "^19.5.0"
 	},
 	"lint-staged": {
 		"*.{js,ts,cjs,mjs,d.cts,d.mts,json,jsonc}": [
 			"biome check --apply --no-errors-on-unmatched"
+		]
+	},
+	"release-it": {
+		"git": {
+			"commitMessage": "chore: release v${version}"
+		},
+		"github": {
+			"release": true
+		},
+		"npm": {
+			"publish": false
+		},
+		"plugins": {
+			"@release-it/conventional-changelog": {
+				"infile": "CHANGELOG.md",
+				"preset": {
+					"name": "conventionalcommits",
+					"types": [
+						{
+							"type": "BREAKING CHANGE",
+							"section": "Breaking Changes:"
+						},
+						{
+							"type": "feat",
+							"section": "Features:"
+						},
+						{
+							"type": "fix",
+							"section": "Bug Fixes:"
+						},
+						{
+							"type": "refactor",
+							"section": "Refactorings:"
+						},
+						{
+							"type": "docs",
+							"section": "Documentations:"
+						},
+						{
+							"type": "test",
+							"section": "Tests:"
+						}
+					]
+				}
+			}
+		}
+	},
+	"commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
 		]
 	}
 }

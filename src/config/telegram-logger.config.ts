@@ -1,11 +1,11 @@
 import * as https from "node:https";
 
 class TelegramLogger {
-    private baseUrl: string;
+    private readonly baseUrl: string;
 
     constructor(
-        private token = "123",
-        private channelId = 123,
+        private readonly token = "123",
+        private readonly channelId = 123,
     ) {
         this.isThereToken(token);
         this.isThereChannelId(channelId);

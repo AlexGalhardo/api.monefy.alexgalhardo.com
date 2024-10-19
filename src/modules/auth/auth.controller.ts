@@ -1,8 +1,7 @@
-import AuthForgetPasswordUseCase from "src/modules/auth/auth-forget-password.use-case";
-import AuthLoginUseCase from "src/modules/auth/auth-login.use-case";
-import AuthResetPasswordUseCase from "src/modules/auth/auth-reset-password.use-case";
-import AuthSignupUseCase from "src/modules/auth/auth-signup.use-case";
-import { using_database } from "src/utils/constants.util";
+import AuthForgetPasswordUseCase from "./use-cases/auth-forget-password.use-case";
+import AuthLoginUseCase from "./use-cases/auth-login.use-case";
+import AuthResetPasswordUseCase from "./use-cases/auth-reset-password.use-case";
+import AuthSignupUseCase from "./use-cases/auth-signup.use-case";
 
 export default class AuthController {
     static async signup({ body, set }) {
@@ -13,8 +12,6 @@ export default class AuthController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
-                using_database,
                 error: error.issues ?? error.message,
             };
         }
@@ -28,8 +25,6 @@ export default class AuthController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.ENVIROMENT,
-                using_database,
                 error: error.issues ?? error.message,
             };
         }
@@ -43,8 +38,6 @@ export default class AuthController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
-                using_database,
                 error: error.issues ?? error.message,
             };
         }
@@ -63,8 +56,6 @@ export default class AuthController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
-                using_database,
                 error: error.issues ?? error.message,
             };
         }

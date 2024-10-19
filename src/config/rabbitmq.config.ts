@@ -103,7 +103,7 @@ export default class RabbitMQ {
                                 html: `<p>A new user was registered</p><p>User: ${content}</p>`,
                             });
 
-                            TelegramLog.info(`USER CREATED: ${content}`);
+                            // TelegramLog.info(`USER CREATED: ${content}`);
                         }
                     },
                     { noAck: true },
@@ -123,7 +123,7 @@ export default class RabbitMQ {
                                 html: `<p>Resye your password clicking this link:</p><p>User: ${content}</p>`,
                             });
 
-                            TelegramLog.info(`Forget Password: ${content}`);
+                            // TelegramLog.info(`Forget Password: ${content}`);
                         }
                     },
                     { noAck: true },
