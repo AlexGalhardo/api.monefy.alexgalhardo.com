@@ -30,7 +30,8 @@ export const app = new Elysia()
             context: context,
         };
     })
-    .get("/", HealthCheckController.index)
+    .get("/", () => ({ success: true, message: "API is on, lets gooo!" }))
+    .get("/health-check", HealthCheckController.index)
     .post("/signup", AuthController.signup)
     .post("/login", AuthController.login)
     .post("/forget-password", AuthController.forgetPassword)

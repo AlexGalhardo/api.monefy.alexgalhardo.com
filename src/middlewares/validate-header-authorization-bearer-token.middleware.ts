@@ -1,6 +1,5 @@
 import * as jwt from "jsonwebtoken";
 import UsersRepository from "src/repositories/users.repository";
-import { using_database } from "src/utils/constants.util";
 import { ErrorsMessages } from "src/utils/errors-messages.util";
 
 const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }: any) => {
@@ -11,9 +10,7 @@ const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }:
 
             return {
                 success: false,
-                environment: Bun.env.NODE_ENV,
-                using_database,
-                message: ErrorsMessages.HEADER_AUTHORIZATION_BEARER_TOKEN_REQUIRED,
+                error: ErrorsMessages.HEADER_AUTHORIZATION_BEARER_TOKEN_REQUIRED,
             };
         }
 
@@ -25,8 +22,6 @@ const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }:
             set.status = 401;
             return {
                 success: false,
-                environment: Bun.env.NODE_ENV,
-                using_database,
                 error: ErrorsMessages.HEADER_AUTHORIZATION_BEARER_TOKEN_INVALID,
             };
         }
@@ -34,8 +29,6 @@ const ValidateHeaderAuthorizationBearerTokenMiddleware = async ({ bearer, set }:
         set.status = 401;
         return {
             success: false,
-            environment: Bun.env.NODE_ENV,
-            using_database,
             error: error.message,
             stack: error.stack,
         };

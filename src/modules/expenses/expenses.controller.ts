@@ -5,7 +5,6 @@ import ExpenseGetAllUseCase from "src/modules/expenses/use-cases/expense-get-all
 import ExpenseGetByIdUseCase from "src/modules/expenses/use-cases/expense-get-by-id.use-case";
 import ExpenseUpdateUseCase from "src/modules/expenses/use-cases/expense-update.use-case";
 import ExpenseGetStatisticsUseCase from "src/modules/expenses/use-cases/expenses-get-statistics.use-case";
-import { using_database } from "src/utils/constants.util";
 
 export default class ExpensesController {
     static async getAll({ bearer, set }) {
@@ -17,8 +16,6 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.NODE_ENV,
-                using_database,
                 error: error.issues ?? error.message,
             };
         }
@@ -33,8 +30,6 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.NODE_ENV,
-                using_database,
                 error: error.issues ?? error.message,
             };
         }
@@ -49,8 +44,6 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.NODE_ENV,
-                using_database,
                 error: error.issues ?? error.message,
             };
         }
@@ -65,8 +58,6 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.NODE_ENV,
-                using_database,
                 error: error.issues ?? error.message,
             };
         }
@@ -87,8 +78,6 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.NODE_ENV,
-                using_database,
                 error: error.issues ?? error.message,
             };
         }
@@ -103,8 +92,6 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.NODE_ENV,
-                using_database,
                 error: error.issues ?? error.message,
             };
         }

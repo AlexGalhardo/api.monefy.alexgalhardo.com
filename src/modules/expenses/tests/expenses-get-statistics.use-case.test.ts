@@ -3,13 +3,14 @@ import { ExpenseCategory } from "@prisma/client";
 import ExpensesRepository from "../../../repositories/expenses.repository";
 import UsersRepository from "../../../repositories/users.repository";
 import { app } from "../../../server";
+import { faker } from "@faker-js/faker";
 
 describe("...Testing Expense Get Statistics Use Case", () => {
     it("should get all expenses", async () => {
         const user = {
-            name: "test signup get statistics expenses",
-            email: "test.signup.get.statistics.expenses@gmail.com",
-            password: "testsignupugetstatisticsexpensesQWE!123",
+            name: faker.internet.userName(),
+            email: faker.internet.email(),
+            password: "testsignupQWE!123",
         };
 
         const responseSignup: any = await app

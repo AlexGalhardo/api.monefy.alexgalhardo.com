@@ -2,13 +2,14 @@ import { afterAll, describe, expect, it } from "bun:test";
 import { ExpenseCategory } from "@prisma/client";
 import UsersRepository from "../../../repositories/users.repository";
 import { app } from "../../../server";
+import { faker } from "@faker-js/faker";
 
 describe("...Testing Expense Delete Use Case", () => {
     it("should delete expense using user owner jwt token", async () => {
         const user = {
-            name: "deletetest",
-            email: "deletetest@gmail.com",
-            password: "deletetestQWE!123",
+            name: faker.internet.userName(),
+            email: faker.internet.email(),
+            password: "testsignupQWE!123",
         };
 
         const responseSignup: any = await app
@@ -53,7 +54,7 @@ describe("...Testing Expense Delete Use Case", () => {
             id: expect.any(String),
             user_email: user.email,
             created_at: expect.any(String),
-            updated_at: null,
+            updated_at: expect.any(String),
         });
 
         const responseExpenseDeleted: any = await app

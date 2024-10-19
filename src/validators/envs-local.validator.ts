@@ -10,6 +10,7 @@ export const envsLocalValidator = z.object({
     USE_JSON_DATABASE: z.enum(["true", "false"]),
     USE_REDIS: z.enum(["true", "false"]),
     USE_TELEGRAM_LOG: z.enum(["true", "false"]),
+    LOG_PRISMA_QUERIES: z.enum(["true", "false"]),
     REDIS_HOST: z.string().default("localhost"),
     REDIS_PORT: z.string().default("6379"),
     JWT_SECRET: z.string().default("6671e43107a8037a9c02a640fc88f9ea79d36bb3266381db482013eea842dd1c"),

@@ -20,7 +20,7 @@ export interface ExpenseGetStatisticsUseCasePort {
 export default class ExpenseGetStatisticsUseCase implements ExpenseGetStatisticsUseCasePort {
     constructor(private readonly usersRepository: UsersRepositoryPort = new UsersRepository()) {}
 
-    private categories: ExpenseCategory[] = [
+    private readonly categories: ExpenseCategory[] = [
         "FOOD",
         "HOUSE",
         "EDUCATION",
@@ -36,7 +36,7 @@ export default class ExpenseGetStatisticsUseCase implements ExpenseGetStatistics
         "CLOTHES",
     ];
 
-    private calculateExpenses = (data: Expense[]) => {
+    private readonly calculateExpenses = (data: Expense[]) => {
         const result: { [key: string]: any } = {
             total_transactions: data.length,
             total_expenses: 0,

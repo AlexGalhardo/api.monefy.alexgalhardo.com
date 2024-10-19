@@ -55,7 +55,7 @@ describe("...Testing Expense Get By Id Use Case", () => {
             id: expect.any(String),
             user_email: user.email,
             created_at: expect.any(String),
-            updated_at: null,
+            updated_at: expect.any(String),
         });
 
         const responseGetExpenseById: any = await app
@@ -76,7 +76,7 @@ describe("...Testing Expense Get By Id Use Case", () => {
             id: expect.any(String),
             user_email: user.email,
             created_at: expect.any(String),
-            updated_at: null,
+            updated_at: expect.any(String),
         });
 
         afterAll(async () => {

@@ -1,6 +1,4 @@
-<div align="center">
-  	<h1 align="center"><a href="https://api.monefy.alexgalhardo.com" target="_blank">api.monefy.alexgalhardo.com</a></h1>
-</div>
+<h1 align="center"><a href="https://api.monefy.alexgalhardo.com" target="_blank">api.monefy.alexgalhardo.com</a></h1>
 
 ## Introduction
 
@@ -36,7 +34,6 @@ cp .env.example .env
 ```bash
 chmod +x setup.sh && ./setup.sh
 ```
-
 
 ## Build to single-file executable
 
