@@ -5,15 +5,17 @@
 		"client": "bun run src/client.ts",
 		"format:prettier": "prettier --write \"src/**/*.ts\"",
 		"test:integration": "bun test --timeout 30000",
-		"husky": "husky install",
-		"build": "bun build --compile --minify ./src/server.ts --outfile server && bun build --compile --minify ./src/client.ts --outfile client",
-		"build-server": "./server",
-		"build-client": "./client",
-		"delete-image-and-up-docker": "docker stop $(docker ps -q) && docker rm $(docker ps -aq) && sudo docker build -t api-money-manager.alexgalhardo.com . && docker run -d -p 3000:3000 api-money-manager.alexgalhardo.com",
-		"build-and-up-docker": "sudo docker build -t api-money-manager.alexgalhardo.com . && docker run -d -p 3000:3000 api-money-manager.alexgalhardo.com",
 		"prepare": "bunx husky",
 		"lint": "biome check src/ --fix --unsafe",
-		"format": "biome format src/ --fix"
+		"format": "biome format src/ --fix",
+		"prisma:studio": "bunx prisma studio",
+		"prisma:format": "bunx prisma format",
+		"prisma:migrate": "bunx prisma migrate dev",
+		"build-server": "./server",
+		"build-client": "./client",
+		"build": "bun build --compile --minify ./src/server.ts --outfile server && bun build --compile --minify ./src/client.ts --outfile client",
+		"delete-image-and-up-docker": "docker stop $(docker ps -q) && docker rm $(docker ps -aq) && sudo docker build -t api-money-manager.alexgalhardo.com . && docker run -d -p 3000:3000 api-money-manager.alexgalhardo.com",
+		"build-and-up-docker": "sudo docker build -t api-money-manager.alexgalhardo.com . && docker run -d -p 3000:3000 api-money-manager.alexgalhardo.com"
 	},
 	"prisma": {
 		"seed": "ts-node --transpile-only --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"

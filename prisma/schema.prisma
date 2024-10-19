@@ -8,17 +8,17 @@ datasource db {
 }
 
 enum UserRole {
-	CUSTOMER
-	ADMIN
+  CUSTOMER
+  ADMIN
 }
 
 model User {
-  id                              String    @id @default(uuid())
+  id String @id @default(uuid())
 
-  name                            String
-  email                           String    @unique
+  name  String
+  email String @unique
 
-  role 							  UserRole  @default(CUSTOMER)
+  role UserRole @default(CUSTOMER)
 
   phone_number String?
   cpf          String? @unique
@@ -33,19 +33,19 @@ model User {
   address_state             String?
   address_country           String?
 
-  jwt_token                       String?   @unique
+  jwt_token String? @unique
 
   password                        String
-  reset_password_token            String?   @unique
+  reset_password_token            String? @unique
   reset_password_token_expires_at String?
 
-  confirm_email_valited          Boolean?   @default(false)
+  confirm_email_valited_at       DateTime?
   confirm_email_token            String?   @unique
   confirm_email_token_expires_at DateTime?
 
-  created_at                      DateTime @default(now())
-  updated_at                      DateTime? @updatedAt
-  deleted_at					  DateTime?
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+  deleted_at DateTime?
 
   expenses Expense[]
 
@@ -70,20 +70,18 @@ enum ExpenseCategory {
 }
 
 model Expense {
-  id          String          @id @default(uuid())
+  id String @id @default(uuid())
 
   user_email  String
   description String
   category    ExpenseCategory
   amount      Int
 
-  created_at  String
-  updated_at  String?
-  deleted_at  String
+  created_at DateTime  @default(now())
+  updated_at DateTime? @updatedAt
+  deleted_at DateTime?
 
   user User @relation(fields: [user_email], references: [email])
 
   @@map("expenses")
 }
-
-
