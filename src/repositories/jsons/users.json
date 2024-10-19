@@ -1,13 +1,1 @@
-[
-    {
-        "id": "2339b194-a029-431b-b676-bdd543f58f2f",
-        "name": "User Signup",
-        "email": "user.signup@gmail.com",
-        "jwt_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2VtYWlsIjoidXNlci5zaWdudXBAZ21haWwuY29tIiwiaWF0IjoxNzI3MjkzNTM2fQ.5POjMbcFGj77Jid2-qfn_8AagHQoMopJ8epsqS1q1ao",
-        "password": "$2a$12$rXuAOGWKuI6EfHZRDsB6Te3XK8wpSQNOyeWhVYOF.gEblH/YMqGjS",
-        "reset_password_token": null,
-        "reset_password_token_expires_at": null,
-        "created_at": "2024-09-25T19:45:37.196Z",
-        "updated_at": null
-    }
-]
+[]

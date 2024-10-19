@@ -1,7 +1,7 @@
 import { randomUUID } from "node:crypto";
 import type { Expense, User } from "@prisma/client";
-import type { ExpenseCreateDTO } from "src/modules/expenses/expense-create.use-case";
-import type { ExpenseUpdateDTO } from "src/modules/expenses/expense-update.use-case";
+import type { ExpenseCreateDTO } from "src/modules/expenses/use-cases/expense-create.use-case";
+import type { ExpenseUpdateDTO } from "src/modules/expenses/use-cases/expense-update.use-case";
 import { ErrorsMessages } from "src/utils/errors-messages.util";
 import prisma from "../config/prisma.config";
 
@@ -95,7 +95,8 @@ export default class ExpensesRepository implements ExpensesRepositoryPort {
                     category,
                     amount,
                     created_at: new Date(),
-                    updated_at: null,
+                    updated_at: new Date(),
+                    deleted_at: null,
                 };
 
                 file.push(expense);

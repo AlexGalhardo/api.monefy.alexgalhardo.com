@@ -1,10 +1,10 @@
 import * as jwt from "jsonwebtoken";
-import ExpenseCreateUseCase from "src/modules/expenses/expense-create.use-case";
-import ExpenseDeleteUseCase from "src/modules/expenses/expense-delete.use-case";
-import ExpenseGetAllUseCase from "src/modules/expenses/expense-get-all.use-case";
-import ExpenseGetByIdUseCase from "src/modules/expenses/expense-get-by-id.use-case";
-import ExpenseUpdateUseCase from "src/modules/expenses/expense-update.use-case";
-import ExpenseGetStatisticsUseCase from "src/modules/expenses/expenses-get-statistics.use-case";
+import ExpenseCreateUseCase from "src/modules/expenses/use-cases/expense-create.use-case";
+import ExpenseDeleteUseCase from "src/modules/expenses/use-cases/expense-delete.use-case";
+import ExpenseGetAllUseCase from "src/modules/expenses/use-cases/expense-get-all.use-case";
+import ExpenseGetByIdUseCase from "src/modules/expenses/use-cases/expense-get-by-id.use-case";
+import ExpenseUpdateUseCase from "src/modules/expenses/use-cases/expense-update.use-case";
+import ExpenseGetStatisticsUseCase from "src/modules/expenses/use-cases/expenses-get-statistics.use-case";
 import { using_database } from "src/utils/constants.util";
 
 export default class ExpensesController {
@@ -17,7 +17,7 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
+                environment: Bun.env.NODE_ENV,
                 using_database,
                 error: error.issues ?? error.message,
             };
@@ -33,7 +33,7 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
+                environment: Bun.env.NODE_ENV,
                 using_database,
                 error: error.issues ?? error.message,
             };
@@ -49,7 +49,7 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
+                environment: Bun.env.NODE_ENV,
                 using_database,
                 error: error.issues ?? error.message,
             };
@@ -65,7 +65,7 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
+                environment: Bun.env.NODE_ENV,
                 using_database,
                 error: error.issues ?? error.message,
             };
@@ -87,7 +87,7 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
+                environment: Bun.env.NODE_ENV,
                 using_database,
                 error: error.issues ?? error.message,
             };
@@ -103,7 +103,7 @@ export default class ExpensesController {
             set.status = 400;
             return {
                 success: false,
-                environment: Bun.env.ENVIRONMENT,
+                environment: Bun.env.NODE_ENV,
                 using_database,
                 error: error.issues ?? error.message,
             };

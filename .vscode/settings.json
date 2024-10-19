@@ -1,6 +1,7 @@
 {
 	"workbench.iconTheme": "material-icon-theme",
 	"workbench.colorTheme": "Omni",
+	"editor.formatOnSave": true,
 	"[jsonc]": {
 		"editor.defaultFormatter": "vscode.json-language-features"
 	},
@@ -35,7 +36,6 @@
 	},
 	"editor.fontSize": 16,
 	"editor.wordWrap": "on",
-	"editor.formatOnSave": true,
 	"files.exclude": {
 		"**/.trunk/*out": true,
 		"**/.trunk/*out/": true,
